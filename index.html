@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grimório — Ordem Paranormal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   RESET & ROOT
+   ============================================================ */
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
+:root {
+  --white:     #ffffff;
+  --off-white: #f5f4f2;
+  --grey-100: #e8e7e4;
+  --grey-200: #c8c6c1;
+  --grey-300: #9a9894;
+  --grey-400: #6b6965;
+  --black:    #111111;
+  --black-90: #1a1a1a;
+  --black-80: #242424;
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Cormorant Garamond', serif;
+
+  /* Element palette (applied dynamically via JS) */
+  --el-hue:   0;
+  --el-color: var(--black);
+  --el-bg:    rgba(0,0,0,0.04);
+  --el-border:rgba(0,0,0,0.18);
+}
+
+/* ============================================================
+   BODY
+   ============================================================ */
+body {
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.55;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 72px 28px 100px;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.header-rule {
+  width: 40px; height: 1px;
+  background: var(--black);
+  margin: 0 auto 28px;
+}
+.header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: var(--black);
+  line-height: 1;
+}
+.header p {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.05rem;
+  color: var(--grey-300);
+  margin-top: 12px;
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   ADD BUTTON
+   ============================================================ */
+.btn-add-wrap { text-align: center; margin-bottom: 56px; }
+
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--black);
+  color: var(--black);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s;
+  position: relative;
+}
+.btn-add::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 0; height: 1px;
+  background: var(--grey-300);
+  transition: width 0.35s ease;
+}
+.btn-add:hover { color: var(--grey-400); }
+.btn-add:hover::after { width: 100%; }
+.btn-add .plus {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.3s;
+}
+.btn-add:hover .plus { transform: rotate(90deg); }
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(2px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.28s ease;
+  padding: 24px;
+}
+.modal-overlay.active { opacity:1; pointer-events:auto; }
+
+.modal {
+  background: var(--white);
+  border: 1px solid var(--grey-100);
+  width: 100%; max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 40px 36px 36px;
+  position: relative;
+  box-shadow: 0 2px 40px rgba(0,0,0,0.07);
+  transform: translateY(14px);
+  transition: transform 0.32s cubic-bezier(.22,1,.36,1);
+}
+.modal-overlay.active .modal { transform: translateY(0); }
+
+.modal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 30px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--grey-100);
+}
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: var(--black);
+}
+.btn-close {
+  background:none; border:none;
+  font-size: 1.4rem; line-height:1;
+  color: var(--grey-300);
+  cursor:pointer;
+  transition: color 0.2s;
+  padding: 2px 6px;
+}
+.btn-close:hover { color: var(--black); }
+
+/* --- form groups --- */
+.fg { margin-bottom: 18px; }
+.fg label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--grey-300);
+  margin-bottom: 6px;
+}
+.fg input, .fg textarea {
+  width: 100%;
+  background: var(--off-white);
+  border: 1px solid var(--grey-100);
+  border-radius: 3px;
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 9px 12px;
+  outline: none;
+  transition: border-color 0.22s;
+  -webkit-appearance: none;
+}
+.fg input:focus, .fg textarea:focus {
+  border-color: var(--black);
+  background: var(--white);
+}
+.fg input.error { border-color: #c0392b; }
+.fg textarea { resize: vertical; min-height: 64px; line-height:1.5; }
+
+.row2 { display:flex; gap:14px; }
+.row2 .fg { flex:1; }
+
+/* section label inside form */
+.form-section {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  color: var(--grey-200);
+  margin: 26px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.form-section::before, .form-section::after {
+  content:''; flex:1; height:1px;
+  background: var(--grey-100);
+}
+
+/* --- modal footer --- */
+.modal-footer {
+  display:flex; justify-content:flex-end; gap:10px;
+  margin-top: 30px;
+}
+.btn-m {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  padding: 9px 20px;
+  border-radius: 3px;
+  cursor:pointer;
+  transition: all 0.22s;
+  border: 1px solid;
+}
+.btn-cancel { background:var(--white); border-color:var(--grey-200); color:var(--grey-400); }
+.btn-cancel:hover { border-color:var(--grey-400); color:var(--black); }
+.btn-save { background:var(--black); border-color:var(--black); color:var(--white); }
+.btn-save:hover { background:var(--black-80); }
+
+/* ============================================================
+   RITUAL LIST
+   ============================================================ */
+.ritual-list { display:flex; flex-direction:column; gap:1px; }
+
+/* empty */
+.empty-state {
+  text-align:center;
+  padding: 72px 24px;
+  color: var(--grey-200);
+  font-style:italic;
+  font-size: 1.05rem;
+  border: 1px solid var(--grey-100);
+  border-radius: 3px;
+}
+
+/* ============================================================
+   RITUAL CARD  — element colors applied via inline CSS vars
+   ============================================================ */
+.ritual-card {
+  background: var(--white);
+  border: 1px solid var(--grey-100);
+  border-radius: 3px;
+  overflow: hidden;
+  animation: cardIn 0.3s cubic-bezier(.22,1,.36,1) both;
+  transition: box-shadow 0.25s;
+}
+.ritual-card:hover {
+  box-shadow: 0 2px 18px rgba(0,0,0,0.06);
+}
+@keyframes cardIn {
+  from { opacity:0; transform:translateY(6px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* top accent stripe — colored by element */
+.card-stripe {
+  height: 3px;
+  background: var(--el-color);
+}
+
+/* header row */
+.card-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 16px 20px 12px;
+}
+.card-head-left { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+
+.card-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--black);
+  letter-spacing: 0.01em;
+}
+
+/* element badge */
+.card-el {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  padding: 3px 9px;
+  border-radius: 2px;
+  background: var(--el-bg);
+  color: var(--el-color);
+  border: 1px solid var(--el-border);
+}
+
+/* card action buttons (edit + remove) */
+.card-actions { display:flex; gap:4px; flex-shrink:0; }
+.btn-rm, .btn-ed {
+  background:none; border:none;
+  color: var(--grey-200);
+  cursor:pointer;
+  font-size:0.95rem; line-height:1;
+  padding: 5px 7px;
+  border-radius:3px;
+  transition: color 0.2s, background 0.2s;
+}
+.btn-ed:hover { color: var(--black); background: rgba(0,0,0,0.06); }
+.btn-rm:hover { color:#c0392b; background: rgba(192,57,43,0.07); }
+
+/* meta row */
+.card-meta {
+  display:flex; flex-wrap:wrap;
+  gap: 4px 18px;
+  padding: 0 20px 14px;
+}
+.meta-item { font-size: 0.88rem; color: var(--grey-400); }
+.meta-item em {
+  font-style:normal;
+  font-family: var(--font-display);
+  font-size:0.58rem;
+  letter-spacing:0.16em;
+  color: var(--grey-200);
+  display:block;
+  margin-bottom:1px;
+}
+
+/* divider inside card */
+.card-divider {
+  margin: 0 20px;
+  border:none;
+  border-top: 1px solid var(--grey-100);
+}
+
+/* description */
+.card-desc {
+  padding: 14px 20px;
+  font-size: 0.98rem;
+  color: var(--grey-400);
+  line-height: 1.6;
+  border-left: 2px solid var(--el-color);
+  margin: 0 20px;
+}
+
+/* resistencia row — same style as meta but full-width inside card-body */
+.card-resist {
+  padding: 10px 20px 0;
+  font-size: 0.88rem;
+  color: var(--grey-400);
+}
+.card-resist em {
+  font-style:normal;
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: var(--grey-200);
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* levels: discente / verdadeiro */
+.card-levels { padding: 12px 20px 18px; display:flex; flex-direction:column; gap:8px; }
+.card-lv {
+  display:flex; align-items:flex-start; gap:10px;
+  background: var(--off-white);
+  border-radius:3px;
+  padding: 9px 13px;
+}
+.lv-badge {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  padding: 3px 8px;
+  border-radius:2px;
+  flex-shrink:0;
+  margin-top:1px;
+  border: 1px solid;
+}
+.lv-badge.disc {
+  background: rgba(34,139,34,0.08);
+  color: #2e7d32;
+  border-color: rgba(34,139,34,0.25);
+}
+.lv-badge.verd {
+  background: rgba(0,0,0,0.06);
+  color: var(--black);
+  border-color: rgba(0,0,0,0.18);
+}
+.lv-text { font-size: 0.9rem; color: var(--grey-400); line-height:1.5; }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--grey-100); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:var(--grey-200); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:520px) {
+  .wrapper { padding:48px 18px 80px; }
+  .modal { padding:32px 22px 28px; }
+  .row2 { flex-direction:column; }
+  .card-meta { gap:4px 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PAGE ===== -->
+<div class="wrapper">
+  <header class="header">
+    <div class="header-rule"></div>
+    <h1>GRIMÓRIO</h1>
+    <p>Rituais da Ordem Paranormal</p>
+  </header>
+
+  <div class="btn-add-wrap">
+    <button class="btn-add" onclick="openModal()">
+      <span class="plus">+</span>
+      <span>ADICIONAR RITUAL</span>
+    </button>
+  </div>
+
+  <div class="ritual-list" id="ritualList"></div>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-top">
+      <span class="modal-title" id="modalTitle">NOVO RITUAL</span>
+      <button class="btn-close" onclick="closeModal()">×</button>
+    </div>
+
+    <!-- Nome -->
+    <div class="fg">
+      <label>Nome do Ritual</label>
+      <input type="text" id="fName" placeholder="Ex: Aprimorar Físico"/>
+    </div>
+    <!-- Elemento -->
+    <div class="fg">
+      <label>Elemento</label>
+      <input type="text" id="fElement" placeholder="Ex: Sangue 2"/>
+    </div>
+
+    <div class="form-section">PARÂMETROS</div>
+
+    <div class="row2">
+      <div class="fg"><label>Execução</label><input type="text" id="fExec" placeholder="Ex: padrão"/></div>
+      <div class="fg"><label>Alcance</label><input type="text" id="fAlcance" placeholder="Ex: toque"/></div>
+    </div>
+    <div class="row2">
+      <div class="fg"><label>Alvo</label><input type="text" id="fAlvo" placeholder="Ex: 1 ser"/></div>
+      <div class="fg"><label>Duração</label><input type="text" id="fDuracao" placeholder="Ex: cena"/></div>
+    </div>
+    <!-- Resistência -->
+    <div class="fg">
+      <label>Resistência</label>
+      <input type="text" id="fResist" placeholder="Ex: Vontade"/>
+    </div>
+
+    <div class="form-section">DESCRIÇÃO</div>
+    <div class="fg">
+      <label>Descrição</label>
+      <textarea id="fDesc" rows="3" placeholder="Descreva o efeito do ritual…"></textarea>
+    </div>
+
+    <div class="form-section">NÍVEIS</div>
+    <div class="fg">
+      <label>Discente</label>
+      <textarea id="fDisc" rows="2" placeholder="Ex: muda o bônus para +2. Requer 3º círculo."></textarea>
+    </div>
+    <div class="fg">
+      <label>Verdadeiro</label>
+      <textarea id="fVerd" rows="2" placeholder="Ex: muda o bônus para +3. Requer 4º círculo e afinidade."></textarea>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-m btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-m btn-save" onclick="saveRitual()"><span id="btnSaveLabel">SALVAR RITUAL</span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  ELEMENT → COLOR MAP
+// ============================================================
+const ELEMENT_PALETTE = {
+  sangue:      { color:'#c0392b',  bg:'rgba(192,57,43,0.08)',   border:'rgba(192,57,43,0.22)' },
+  morte:       { color:'#1a3a5c',  bg:'rgba(26,58,92,0.08)',    border:'rgba(26,58,92,0.22)'  },
+  energia:     { color:'#6c3483',  bg:'rgba(108,52,131,0.08)',  border:'rgba(108,52,131,0.22)'},
+  conhecimento:{ color:'#b7950b',  bg:'rgba(183,149,11,0.08)',  border:'rgba(183,149,11,0.22)'},
+  medo:        { color:'#ffffff',  bg:'#111111',                border:'#111111',              inverted:true }
+};
+
+function getElementStyle(elementText) {
+  if (!elementText) return { color:'#111111', bg:'rgba(0,0,0,0.04)', border:'rgba(0,0,0,0.18)' };
+  const key = elementText.trim().split(/\s+/)[0].toLowerCase();
+  return ELEMENT_PALETTE[key] || { color:'#111111', bg:'rgba(0,0,0,0.04)', border:'rgba(0,0,0,0.18)' };
+}
+
+// ============================================================
+//  STATE
+// ============================================================
+let rituais   = [];
+let editingId = null;   // null = create mode | number = editing that ritual's id
+
+// ============================================================
+//  MODAL OPEN / CLOSE
+// ============================================================
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('active');
+  document.getElementById('fName').focus();
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  clearForm();
+  editingId = null;
+  setModalMode('create');
+}
+
+document.getElementById('modalOverlay').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+// ============================================================
+//  MODAL MODE LABEL SWAP
+// ============================================================
+function setModalMode(mode) {
+  const title = document.getElementById('modalTitle');
+  const btn   = document.getElementById('btnSaveLabel');
+  if (mode === 'edit') {
+    title.textContent = 'EDITAR RITUAL';
+    btn.textContent   = 'ATUALIZAR RITUAL';
+  } else {
+    title.textContent = 'NOVO RITUAL';
+    btn.textContent   = 'SALVAR RITUAL';
+  }
+}
+
+// ============================================================
+//  FORM HELPERS
+// ============================================================
+const FIELD_IDS = ['fName','fElement','fExec','fAlcance','fAlvo','fDuracao','fResist','fDesc','fDisc','fVerd'];
+
+function clearForm() {
+  FIELD_IDS.forEach(id => { document.getElementById(id).value = ''; });
+}
+
+function fillForm(r) {
+  document.getElementById('fName').value     = r.nome        || '';
+  document.getElementById('fElement').value  = r.elemento    || '';
+  document.getElementById('fExec').value     = r.execucao    || '';
+  document.getElementById('fAlcance').value  = r.alcance     || '';
+  document.getElementById('fAlvo').value     = r.alvo        || '';
+  document.getElementById('fDuracao').value  = r.duracao     || '';
+  document.getElementById('fResist').value   = r.resistencia || '';
+  document.getElementById('fDesc').value     = r.descricao   || '';
+  document.getElementById('fDisc').value     = r.discente    || '';
+  document.getElementById('fVerd').value     = r.verdadeiro  || '';
+}
+
+// ============================================================
+//  EDIT — populate form with existing ritual
+// ============================================================
+function editRitual(id) {
+  const ritual = rituais.find(r => r.id === id);
+  if (!ritual) return;
+  editingId = id;
+  fillForm(ritual);
+  setModalMode('edit');
+  openModal();
+}
+
+// ============================================================
+//  SAVE (create or update)
+// ============================================================
+function saveRitual() {
+  const nameEl = document.getElementById('fName');
+  const name   = nameEl.value.trim();
+  if (!name) {
+    nameEl.classList.add('error');
+    nameEl.focus();
+    setTimeout(() => nameEl.classList.remove('error'), 1500);
+    return;
+  }
+
+  const data = {
+    nome:        name,
+    elemento:    document.getElementById('fElement').value.trim(),
+    execucao:    document.getElementById('fExec').value.trim(),
+    alcance:     document.getElementById('fAlcance').value.trim(),
+    alvo:        document.getElementById('fAlvo').value.trim(),
+    duracao:     document.getElementById('fDuracao').value.trim(),
+    resistencia: document.getElementById('fResist').value.trim(),
+    descricao:   document.getElementById('fDesc').value.trim(),
+    discente:    document.getElementById('fDisc').value.trim(),
+    verdadeiro:  document.getElementById('fVerd').value.trim()
+  };
+
+  if (editingId !== null) {
+    // --- UPDATE existing ---
+    const idx = rituais.findIndex(r => r.id === editingId);
+    if (idx !== -1) {
+      rituais[idx] = { id: editingId, ...data };
+    }
+  } else {
+    // --- CREATE new ---
+    rituais.unshift({ id: Date.now(), ...data });
+  }
+
+  persist();
+  render();
+  closeModal();
+}
+
+// ============================================================
+//  REMOVE
+// ============================================================
+function removeRitual(id) {
+  rituais = rituais.filter(r => r.id !== id);
+  persist();
+  render();
+}
+
+// ============================================================
+//  RENDER
+// ============================================================
+function render() {
+  const list = document.getElementById('ritualList');
+  if (!rituais.length) {
+    list.innerHTML = '<div class="empty-state">Nenhum ritual registrado ainda.</div>';
+    return;
+  }
+  list.innerHTML = rituais.map((r, i) => {
+    const s = getElementStyle(r.elemento);
+
+    const metas = [
+      ['Execução', r.execucao],
+      ['Alcance',  r.alcance],
+      ['Alvo',     r.alvo],
+      ['Duração',  r.duracao]
+    ].filter(m => m[1]);
+
+    return `
+    <div class="ritual-card" style="animation-delay:${i*0.04}s">
+      <div class="card-stripe" style="background:${s.color}"></div>
+
+      <div class="card-head">
+        <div class="card-head-left">
+          <span class="card-name">${esc(r.nome)}</span>
+          ${r.elemento ? `<span class="card-el" style="background:${s.bg};color:${s.color};border-color:${s.border}">${esc(r.elemento)}</span>` : ''}
+        </div>
+        <div class="card-actions">
+          <button class="btn-ed" onclick="editRitual(${r.id})" title="Editar">✎</button>
+          <button class="btn-rm" onclick="removeRitual(${r.id})" title="Remover">✕</button>
+        </div>
+      </div>
+
+      ${metas.length ? `<div class="card-meta">${metas.map(m=>`<div class="meta-item"><em>${m[0]}</em>${esc(m[1])}</div>`).join('')}</div>` : ''}
+
+      ${r.resistencia ? `
+        <hr class="card-divider"/>
+        <div class="card-resist">
+          <em>Resistência</em>
+          ${esc(r.resistencia)}
+        </div>` : ''}
+
+      ${r.descricao ? `
+        <hr class="card-divider"/>
+        <p class="card-desc" style="border-left-color:${s.color}">${esc(r.descricao)}</p>` : ''}
+
+      ${(r.discente||r.verdadeiro) ? `
+        <hr class="card-divider"/>
+        <div class="card-levels">
+          ${r.discente  ? `<div class="card-lv"><span class="lv-badge disc">Discente</span><span class="lv-text">${esc(r.discente)}</span></div>` : ''}
+          ${r.verdadeiro? `<div class="card-lv"><span class="lv-badge verd">Verdadeiro</span><span class="lv-text">${esc(r.verdadeiro)}</span></div>` : ''}
+        </div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+// ============================================================
+//  PERSISTENCE
+// ============================================================
+const KEY = 'op-grimorio-rituais';
+async function persist(){ try{ await window.storage.set(KEY, JSON.stringify(rituais)); }catch(e){} }
+async function load()   { try{ const r=await window.storage.get(KEY); if(r&&r.value) rituais=JSON.parse(r.value); }catch(e){} render(); }
+
+load();
+</script>
+</body>
+</html>
