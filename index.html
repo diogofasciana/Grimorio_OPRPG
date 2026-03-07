@@ -600,7 +600,7 @@ function editRitual(id) {
 // ============================================================
 //  SAVE (create or update)
 // ============================================================
-function saveRitual() {
+async function saveRitual() {
   const nameEl = document.getElementById('fName');
   const name   = nameEl.value.trim();
   if (!name) {
@@ -628,13 +628,16 @@ function saveRitual() {
     const idx = rituais.findIndex(r => r.id === editingId);
     if (idx !== -1) {
       rituais[idx] = { id: editingId, ...data };
+      if (useFirebase) await saveToFirebase(rituais[idx]);
     }
   } else {
     // --- CREATE new ---
-    rituais.unshift({ id: Date.now(), ...data });
+    const newRitual = { id: Date.now(), ...data };
+    rituais.unshift(newRitual);
+    if (useFirebase) await saveToFirebase(newRitual);
   }
 
-  persist();
+  saveToLocalStorage(); // Sempre manter backup local
   render();
   closeModal();
 }
@@ -642,9 +645,10 @@ function saveRitual() {
 // ============================================================
 //  REMOVE
 // ============================================================
-function removeRitual(id) {
+async function removeRitual(id) {
+  if (useFirebase) await deleteFromFirebase(id);
   rituais = rituais.filter(r => r.id !== id);
-  persist();
+  saveToLocalStorage(); // Sempre manter backup local
   render();
 }
 
@@ -708,30 +712,144 @@ function render() {
 function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 
 // ============================================================
-//  PERSISTENCE - localStorage (dados salvos permanentemente)
+//  FIREBASE CONFIG - SUBSTITUA COM SUAS CREDENCIAIS
 // ============================================================
-const KEY = 'op-grimorio-rituais';
 
-function persist() {
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCXezUu7oYg3AQORYj2oZwKzsKJj7oPoug",
+  authDomain: "grimorio-op.firebaseapp.com",
+  projectId: "grimorio-op",
+  storageBucket: "grimorio-op.firebasestorage.app",
+  messagingSenderId: "818396662966",
+  appId: "1:818396662966:web:73b90a8541bd35e7e16a17",
+  measurementId: "G-RQ5WWY1ZER"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+// ============================================================
+//  PERSISTENCE - Firebase Firestore (nuvem) + localStorage (fallback)
+// ============================================================
+let db = null;
+let useFirebase = false;
+
+// Inicializar Firebase
+async function initFirebase() {
   try {
-    localStorage.setItem(KEY, JSON.stringify(rituais));
-    console.log('✅ Dados salvos com sucesso!');
+    // Importar Firebase
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+    const { getFirestore, collection, getDocs, setDoc, deleteDoc, doc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    
+    // Inicializar app
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    useFirebase = true;
+    
+    console.log('🔥 Firebase conectado!');
+    
+    // Carregar dados da nuvem
+    await loadFromFirebase();
   } catch(e) {
-    console.error('❌ Erro ao salvar dados:', e);
+    console.warn('⚠️ Firebase não configurado, usando localStorage:', e.message);
+    useFirebase = false;
+    loadFromLocalStorage();
   }
 }
 
-function load() {
+// Carregar do Firebase
+async function loadFromFirebase() {
+  try {
+    const { collection, getDocs } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    const querySnapshot = await getDocs(collection(db, 'rituais'));
+    
+    rituais = [];
+    querySnapshot.forEach((doc) => {
+      rituais.push({ id: doc.id, ...doc.data() });
+    });
+    
+    // Ordenar por id (mais recentes primeiro)
+    rituais.sort((a, b) => b.id - a.id);
+    
+    console.log(`🔥 ${rituais.length} ritual(is) carregado(s) do Firebase`);
+    render();
+  } catch(e) {
+    console.error('❌ Erro ao carregar do Firebase:', e);
+    loadFromLocalStorage();
+  }
+}
+
+// Salvar no Firebase
+async function saveToFirebase(ritual) {
+  try {
+    const { setDoc, doc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    await setDoc(doc(db, 'rituais', ritual.id.toString()), ritual);
+    console.log('🔥 Salvo no Firebase!');
+  } catch(e) {
+    console.error('❌ Erro ao salvar no Firebase:', e);
+  }
+}
+
+// Deletar do Firebase
+async function deleteFromFirebase(id) {
+  try {
+    const { deleteDoc, doc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    await deleteDoc(doc(db, 'rituais', id.toString()));
+    console.log('🔥 Deletado do Firebase!');
+  } catch(e) {
+    console.error('❌ Erro ao deletar do Firebase:', e);
+  }
+}
+
+// Fallback: localStorage
+const KEY = 'op-grimorio-rituais';
+
+function loadFromLocalStorage() {
   try {
     const saved = localStorage.getItem(KEY);
     if (saved) {
       rituais = JSON.parse(saved);
-      console.log(`✅ ${rituais.length} ritual(is) carregado(s)`);
+      console.log(`💾 ${rituais.length} ritual(is) carregado(s) do localStorage`);
     }
   } catch(e) {
-    console.error('❌ Erro ao carregar dados:', e);
+    console.error('❌ Erro ao carregar do localStorage:', e);
   }
   render();
+}
+
+function saveToLocalStorage() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(rituais));
+    console.log('💾 Salvo no localStorage!');
+  } catch(e) {
+    console.error('❌ Erro ao salvar no localStorage:', e);
+  }
+}
+
+// Função unificada de persistência
+async function persist() {
+  if (useFirebase) {
+    // Salvar todos os rituais no Firebase
+    const promises = rituais.map(r => saveToFirebase(r));
+    await Promise.all(promises);
+  }
+  // Sempre salvar no localStorage como backup
+  saveToLocalStorage();
+}
+
+// Função unificada de carregamento
+async function load() {
+  await initFirebase();
+  // Se Firebase falhar, já carrega do localStorage dentro de initFirebase
 }
 
 load();
