@@ -719,15 +719,6 @@ function esc(s){ const d=document.createElement('div'); d.textContent=s; return 
 // ============================================================
 //  FIREBASE CONFIG - SUBSTITUA COM SUAS CREDENCIAIS
 // ============================================================
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCXezUu7oYg3AQORYj2oZwKzsKJj7oPoug",
   authDomain: "grimorio-op.firebaseapp.com",
@@ -737,10 +728,6 @@ const firebaseConfig = {
   appId: "1:818396662966:web:73b90a8541bd35e7e16a17",
   measurementId: "G-RQ5WWY1ZER"
 };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 // ============================================================
 //  PERSISTENCE - Firebase + localStorage
@@ -754,15 +741,6 @@ function initFirebase() {
   // Verificar se Firebase está disponível
   if (typeof firebase === 'undefined') {
     console.warn('⚠️ Firebase SDK não carregado, usando apenas localStorage');
-    useFirebase = false;
-    loadFromLocalStorage();
-    return;
-  }
-
-  // Verificar se foi configurado
-  if (firebaseConfig.apiKey === 'SUA-API-KEY-AQUI') {
-    console.warn('⚠️ Firebase não configurado, usando apenas localStorage');
-    console.log('📖 Veja COMPARACAO-STORAGE.md para instruções de configuração');
     useFirebase = false;
     loadFromLocalStorage();
     return;
