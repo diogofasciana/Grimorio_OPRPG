@@ -708,11 +708,31 @@ function render() {
 function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 
 // ============================================================
-//  PERSISTENCE
+//  PERSISTENCE - localStorage (dados salvos permanentemente)
 // ============================================================
 const KEY = 'op-grimorio-rituais';
-async function persist(){ try{ await window.storage.set(KEY, JSON.stringify(rituais)); }catch(e){} }
-async function load()   { try{ const r=await window.storage.get(KEY); if(r&&r.value) rituais=JSON.parse(r.value); }catch(e){} render(); }
+
+function persist() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(rituais));
+    console.log('✅ Dados salvos com sucesso!');
+  } catch(e) {
+    console.error('❌ Erro ao salvar dados:', e);
+  }
+}
+
+function load() {
+  try {
+    const saved = localStorage.getItem(KEY);
+    if (saved) {
+      rituais = JSON.parse(saved);
+      console.log(`✅ ${rituais.length} ritual(is) carregado(s)`);
+    }
+  } catch(e) {
+    console.error('❌ Erro ao carregar dados:', e);
+  }
+  render();
+}
 
 load();
 </script>
