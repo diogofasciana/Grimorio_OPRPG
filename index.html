@@ -6,7 +6,7 @@
 <title>Grimório — Ordem Paranormal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -30,13 +30,7 @@
   --black-80: #242424;
 
   --font-display: 'Bebas Neue', sans-serif;
-  --font-body:    'Montserrat', cursive;
-
-  /* Element palette (applied dynamically via JS) */
-  --el-hue:   0;
-  --el-color: var(--black);
-  --el-bg:    rgba(0,0,0,0.04);
-  --el-border:rgba(0,0,0,0.18);
+  --font-body:    'Montserrat', sans-serif;
 }
 
 /* ============================================================
@@ -56,9 +50,9 @@ body {
    LAYOUT
    ============================================================ */
 .wrapper {
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 72px 28px 100px;
+  padding: 48px 24px 100px;
 }
 
 /* ============================================================
@@ -66,658 +60,540 @@ body {
    ============================================================ */
 .header {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 48px;
 }
 .header-rule {
   width: 40px; height: 1px;
   background: var(--black);
-  margin: 0 auto 28px;
+  margin: 0 auto 24px;
 }
 .header h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 7vw, 3.8rem);
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 400;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   color: var(--black);
   line-height: 1;
 }
 .header p {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--grey-300);
-  margin-top: 12px;
-  letter-spacing: 0.06em;
+  margin-top: 8px;
+  font-style: italic;
 }
 
 /* ============================================================
-   ADD BUTTON
+   TABS
    ============================================================ */
-.btn-add-wrap { text-align: center; margin-bottom: 56px; }
-
-.btn-add {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 11px 0;
+.tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--grey-100);
+}
+.tab {
   background: none;
   border: none;
-  border-bottom: 1px solid var(--black);
-  color: var(--black);
   font-family: var(--font-display);
-  font-size: 0.95rem;
-  letter-spacing: 0.22em;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  color: var(--grey-300);
+  padding: 12px 24px;
   cursor: pointer;
-  transition: border-color 0.25s, color 0.25s;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.tab:hover {
+  color: var(--black);
+}
+.tab.active {
+  color: var(--black);
+  border-bottom-color: var(--black);
+}
+
+/* ============================================================
+   FILTERS
+   ============================================================ */
+.filters {
+  margin-bottom: 32px;
+}
+.filter-group {
+  margin-bottom: 16px;
+}
+.filter-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--grey-300);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.filter-btn {
+  background: var(--off-white);
+  border: 1px solid var(--grey-100);
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--grey-400);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+.filter-btn:hover {
+  background: var(--grey-100);
+  border-color: var(--grey-200);
+}
+.filter-btn.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+/* ============================================================
+   ACTION BUTTON
+   ============================================================ */
+.action-wrap {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.btn-create {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+.btn-create:hover {
+  background: var(--black-90);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   RITUAL SECTIONS
+   ============================================================ */
+.ritual-section {
+  margin-bottom: 48px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 0.1em;
+  color: var(--black);
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--grey-100);
+}
+
+.ritual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* ============================================================
+   RITUAL CARD
+   ============================================================ */
+.ritual-card {
+  background: var(--white);
+  border: 1px solid var(--grey-100);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.2s;
   position: relative;
 }
-.btn-add::after {
-  content: '';
-  position: absolute;
-  bottom: -1px; left: 0;
-  width: 0; height: 1px;
-  background: var(--grey-300);
-  transition: width 0.35s ease;
+.ritual-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
 }
-.btn-add:hover { color: var(--grey-400); }
-.btn-add:hover::after { width: 100%; }
-.btn-add .plus {
+
+.card-stripe {
+  height: 3px;
+  background: var(--black);
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.card-title-area {
+  flex: 1;
+}
+
+.card-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--black);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.card-element {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 3px;
+  border: 1px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.card-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--grey-200);
+  background: var(--white);
+  color: var(--grey-400);
   font-size: 1rem;
-  line-height: 1;
-  transition: transform 0.3s;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.btn-add:hover .plus { transform: rotate(90deg); }
+.card-btn:hover {
+  background: var(--off-white);
+  border-color: var(--grey-300);
+  color: var(--black);
+}
+.card-btn.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+.card-meta {
+  font-size: 0.85rem;
+  color: var(--grey-300);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.card-meta strong {
+  color: var(--grey-400);
+  font-weight: 600;
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--black);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.card-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.badge-sistema {
+  background: var(--grey-100);
+  color: var(--grey-400);
+}
+.badge-customizado {
+  background: #e3f2fd;
+  color: #1565c0;
+}
 
 /* ============================================================
    MODAL
    ============================================================ */
 .modal-overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(2px);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.28s ease;
-  padding: 24px;
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
-.modal-overlay.active { opacity:1; pointer-events:auto; }
+.modal-overlay.show {
+  display: flex;
+}
 
 .modal {
   background: var(--white);
-  border: 1px solid var(--grey-100);
-  width: 100%; max-width: 560px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  padding: 40px 36px 36px;
-  position: relative;
-  box-shadow: 0 2px 40px rgba(0,0,0,0.07);
-  transform: translateY(14px);
-  transition: transform 0.32s cubic-bezier(.22,1,.36,1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
-.modal-overlay.active .modal { transform: translateY(0); }
 
-.modal-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 30px;
-  padding-bottom: 16px;
+.modal-header {
+  padding: 24px;
   border-bottom: 1px solid var(--grey-100);
 }
 .modal-title {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  letter-spacing: 0.2em;
+  font-size: 1.8rem;
+  letter-spacing: 0.1em;
   color: var(--black);
 }
-.btn-close {
-  background:none; border:none;
-  font-size: 1.4rem; line-height:1;
-  color: var(--grey-300);
-  cursor:pointer;
-  transition: color 0.2s;
-  padding: 2px 6px;
-}
-.btn-close:hover { color: var(--black); }
 
-/* --- form groups --- */
-.fg { margin-bottom: 18px; }
-.fg label {
+.modal-body {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+.form-label {
   display: block;
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
-  color: var(--grey-300);
-  margin-bottom: 6px;
-}
-.fg input, .fg textarea {
-  width: 100%;
-  background: var(--off-white);
-  border: 1px solid var(--grey-100);
-  border-radius: 3px;
-  color: var(--black);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  padding: 9px 12px;
-  outline: none;
-  transition: border-color 0.22s;
-  -webkit-appearance: none;
-}
-.fg input:focus, .fg textarea:focus {
-  border-color: var(--black);
-  background: var(--white);
-}
-.fg input.error { border-color: #c0392b; }
-.fg textarea { resize: vertical; min-height: 64px; line-height:1.5; }
-
-.row2 { display:flex; gap:14px; }
-.row2 .fg { flex:1; }
-
-/* section label inside form */
-.form-section {
-  font-family: var(--font-display);
-  font-size: 0.62rem;
-  letter-spacing: 0.26em;
-  color: var(--grey-200);
-  margin: 26px 0 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.form-section::before, .form-section::after {
-  content:''; flex:1; height:1px;
-  background: var(--grey-100);
-}
-
-/* --- modal footer --- */
-.modal-footer {
-  display:flex; justify-content:flex-end; gap:10px;
-  margin-top: 30px;
-}
-.btn-m {
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  padding: 9px 20px;
-  border-radius: 3px;
-  cursor:pointer;
-  transition: all 0.22s;
-  border: 1px solid;
-}
-.btn-cancel { background:var(--white); border-color:var(--grey-200); color:var(--grey-400); }
-.btn-cancel:hover { border-color:var(--grey-400); color:var(--black); }
-.btn-save { background:var(--black); border-color:var(--black); color:var(--white); }
-.btn-save:hover { background:var(--black-80); }
-
-/* ============================================================
-   RITUAL LIST
-   ============================================================ */
-.ritual-list { display:flex; flex-direction:column; gap:1px; }
-
-/* empty */
-.empty-state {
-  text-align:center;
-  padding: 72px 24px;
-  color: var(--grey-200);
-  font-style:italic;
-  font-size: 1.05rem;
-  border: 1px solid var(--grey-100);
-  border-radius: 3px;
-}
-
-/* ============================================================
-   RITUAL CARD  — element colors applied via inline CSS vars
-   ============================================================ */
-.ritual-card {
-  background: var(--white);
-  border: 1px solid var(--grey-100);
-  border-radius: 3px;
-  overflow: hidden;
-  animation: cardIn 0.3s cubic-bezier(.22,1,.36,1) both;
-  transition: box-shadow 0.25s;
-}
-.ritual-card:hover {
-  box-shadow: 0 2px 18px rgba(0,0,0,0.06);
-}
-@keyframes cardIn {
-  from { opacity:0; transform:translateY(6px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-
-/* top accent stripe — colored by element */
-.card-stripe {
-  height: 3px;
-  background: var(--el-color);
-}
-
-/* header row */
-.card-head {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 16px 20px 12px;
-}
-.card-head-left { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-
-.card-name {
-  font-family: var(--font-body);
+  font-size: 0.85rem;
   font-weight: 600;
-  font-size: 1.25rem;
+  color: var(--grey-400);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--grey-200);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
   color: var(--black);
-  letter-spacing: 0.01em;
+  transition: all 0.2s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--black);
+}
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
-/* element badge */
-.card-el {
-  font-family: var(--font-display);
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  padding: 3px 9px;
-  border-radius: 2px;
-  background: var(--el-bg);
-  color: var(--el-color);
-  border: 1px solid var(--el-border);
-}
-
-/* card action buttons (edit + remove) */
-.card-actions { display:flex; gap:4px; flex-shrink:0; }
-.btn-rm, .btn-ed {
-  background:none; border:none;
-  color: var(--grey-200);
-  cursor:pointer;
-  font-size:0.95rem; line-height:1;
-  padding: 5px 7px;
-  border-radius:3px;
-  transition: color 0.2s, background 0.2s;
-}
-.btn-ed:hover { color: var(--black); background: rgba(0,0,0,0.06); }
-.btn-rm:hover { color:#c0392b; background: rgba(192,57,43,0.07); }
-
-/* meta row */
-.card-meta {
-  display:flex; flex-wrap:wrap;
-  gap: 4px 18px;
-  padding: 0 20px 14px;
-}
-.meta-item { font-size: 0.88rem; color: var(--black); }
-.meta-item em {
-  font-style:normal;
-  font-family: var(--font-display);
-  font-size:0.58rem;
-  letter-spacing:0.16em;
-  color: var(--grey-200);
-  display:block;
-  margin-bottom:1px;
-}
-
-/* divider inside card */
-.card-divider {
-  margin: 0 20px;
-  border:none;
+.modal-footer {
+  padding: 20px 24px;
   border-top: 1px solid var(--grey-100);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
 }
-
-/* description */
-.card-desc {
-  padding: 14px 20px;
-  font-size: 0.98rem;
-  color: var(--black);
-  line-height: 1.6;
-  border-left: 2px solid var(--el-color);
-  margin: 0 20px;
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-
-/* resistencia row — same style as meta but full-width inside card-body */
-.card-resist {
-  padding: 10px 20px 0;
-  font-size: 0.88rem;
-  color: var(--black);
+.btn-primary {
+  background: var(--black);
+  color: var(--white);
 }
-.card-resist em {
-  font-style:normal;
-  font-family: var(--font-display);
-  font-size: 0.58rem;
-  letter-spacing: 0.16em;
-  color: var(--grey-200);
-  display: block;
-  margin-bottom: 2px;
+.btn-primary:hover {
+  background: var(--black-90);
 }
-
-/* levels: discente / verdadeiro */
-.card-levels { padding: 12px 20px 18px; display:flex; flex-direction:column; gap:8px; }
-.card-lv {
-  display:flex; align-items:flex-start; gap:10px;
-  background: var(--off-white);
-  border-radius:3px;
-  padding: 9px 13px;
+.btn-secondary {
+  background: var(--grey-100);
+  color: var(--grey-400);
 }
-.lv-badge {
-  font-family: var(--font-display);
-  font-size: 0.58rem;
-  letter-spacing: 0.16em;
-  padding: 3px 8px;
-  border-radius:2px;
-  flex-shrink:0;
-  margin-top:1px;
-  border: 1px solid;
+.btn-secondary:hover {
+  background: var(--grey-200);
 }
-.lv-badge.disc {
-  background: rgba(34,139,34,0.08);
-  color: #2e7d32;
-  border-color: rgba(34,139,34,0.25);
-}
-.lv-badge.verd {
-  background: rgba(0,0,0,0.06);
-  color: var(--black);
-  border-color: rgba(0,0,0,0.18);
-}
-.lv-text { font-size: 0.9rem; color: var(--black); line-height:1.5; }
 
 /* ============================================================
-   SCROLLBAR
+   EMPTY STATE
    ============================================================ */
-::-webkit-scrollbar { width:5px; }
-::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:var(--grey-100); border-radius:3px; }
-::-webkit-scrollbar-thumb:hover { background:var(--grey-200); }
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--grey-300);
+  font-size: 0.95rem;
+}
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width:520px) {
-  .wrapper { padding:48px 18px 80px; }
-  .modal { padding:32px 22px 28px; }
-  .row2 { flex-direction:column; }
-  .card-meta { gap:4px 12px; }
+@media (max-width: 768px) {
+  .ritual-grid {
+    grid-template-columns: 1fr;
+  }
+  .tabs {
+    gap: 4px;
+  }
+  .tab {
+    font-size: 1.1rem;
+    padding: 10px 16px;
+  }
+  .filter-buttons {
+    gap: 6px;
+  }
+  .filter-btn {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
 }
 </style>
 </head>
 <body>
 
-<!-- ===== PAGE ===== -->
 <div class="wrapper">
+  <!-- HEADER -->
   <header class="header">
     <div class="header-rule"></div>
     <h1>GRIMÓRIO</h1>
-    <p>Rituais da Ordem Paranormal</p>
+    <p>Ordem Paranormal</p>
   </header>
 
-  <div class="btn-add-wrap">
-    <button class="btn-add" onclick="openModal()">
-      <span class="plus">+</span>
-      <span>ADICIONAR RITUAL</span>
-    </button>
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('biblioteca')">📚 Biblioteca</button>
+    <button class="tab" onclick="switchTab('meus')">⭐ Meus Rituais</button>
   </div>
 
-  <div class="ritual-list" id="ritualList"></div>
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="filter-group">
+      <div class="filter-label">Elemento</div>
+      <div class="filter-buttons" id="filtroElemento">
+        <button class="filter-btn active" data-elem="todos" onclick="filterElem('todos')">Todos</button>
+        <button class="filter-btn" data-elem="Sangue" onclick="filterElem('Sangue')">Sangue</button>
+        <button class="filter-btn" data-elem="Morte" onclick="filterElem('Morte')">Morte</button>
+        <button class="filter-btn" data-elem="Energia" onclick="filterElem('Energia')">Energia</button>
+        <button class="filter-btn" data-elem="Conhecimento" onclick="filterElem('Conhecimento')">Conhecimento</button>
+        <button class="filter-btn" data-elem="Medo" onclick="filterElem('Medo')">Medo</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Círculo</div>
+      <div class="filter-buttons" id="filtroCirculo">
+        <button class="filter-btn active" data-circ="todos" onclick="filterCirc('todos')">Todos</button>
+        <button class="filter-btn" data-circ="1" onclick="filterCirc('1')">1º Círculo</button>
+        <button class="filter-btn" data-circ="2" onclick="filterCirc('2')">2º Círculo</button>
+        <button class="filter-btn" data-circ="3" onclick="filterCirc('3')">3º Círculo</button>
+        <button class="filter-btn" data-circ="4" onclick="filterCirc('4')">4º Círculo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATE BUTTON -->
+  <div class="action-wrap">
+    <button class="btn-create" onclick="openCreateModal()">+ Criar Ritual Customizado</button>
+  </div>
+
+  <!-- RITUAL LIST -->
+  <div id="ritualContainer"></div>
 </div>
 
-<!-- ===== MODAL ===== -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-top">
-      <span class="modal-title" id="modalTitle">NOVO RITUAL</span>
-      <button class="btn-close" onclick="closeModal()">×</button>
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalIfOutside(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">CRIAR RITUAL</div>
     </div>
-
-    <!-- Nome -->
-    <div class="fg">
-      <label>Nome do Ritual</label>
-      <input type="text" id="fName" placeholder="Ex: Aprimorar Físico"/>
+    <div class="modal-body">
+      <form id="ritualForm" onsubmit="saveRitual(event)">
+        <div class="form-group">
+          <label class="form-label">Nome do Ritual *</label>
+          <input type="text" class="form-input" id="fNome" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Elemento *</label>
+          <select class="form-select" id="fElemento" required>
+            <option value="">Selecione...</option>
+            <option value="Sangue">Sangue</option>
+            <option value="Morte">Morte</option>
+            <option value="Energia">Energia</option>
+            <option value="Conhecimento">Conhecimento</option>
+            <option value="Medo">Medo</option>
+            <option value="Múltiplo">Múltiplo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Círculo *</label>
+          <select class="form-select" id="fCirculo" required>
+            <option value="">Selecione...</option>
+            <option value="1">1º Círculo</option>
+            <option value="2">2º Círculo</option>
+            <option value="3">3º Círculo</option>
+            <option value="4">4º Círculo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Execução</label>
+          <input type="text" class="form-input" id="fExecucao" placeholder="Ex: padrão, completa, reação">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Alcance</label>
+          <input type="text" class="form-input" id="fAlcance" placeholder="Ex: toque, curto, médio">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Alvo</label>
+          <input type="text" class="form-input" id="fAlvo" placeholder="Ex: 1 ser, você">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Duração</label>
+          <input type="text" class="form-input" id="fDuracao" placeholder="Ex: cena, sustentada, instantânea">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Resistência</label>
+          <input type="text" class="form-input" id="fResistencia" placeholder="Ex: Vontade anula, Fortitude parcial">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Descrição *</label>
+          <textarea class="form-textarea" id="fDescricao" required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Discente</label>
+          <textarea class="form-textarea" id="fDiscente" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Verdadeiro</label>
+          <textarea class="form-textarea" id="fVerdadeiro" rows="3"></textarea>
+        </div>
+      </form>
     </div>
-    <!-- Elemento -->
-    <div class="fg">
-      <label>Elemento</label>
-      <input type="text" id="fElement" placeholder="Ex: Sangue 2"/>
-    </div>
-
-    <div class="form-section">PARÂMETROS</div>
-
-    <div class="row2">
-      <div class="fg"><label>Execução</label><input type="text" id="fExec" placeholder="Ex: padrão"/></div>
-      <div class="fg"><label>Alcance</label><input type="text" id="fAlcance" placeholder="Ex: toque"/></div>
-    </div>
-    <div class="row2">
-      <div class="fg"><label>Alvo</label><input type="text" id="fAlvo" placeholder="Ex: 1 ser"/></div>
-      <div class="fg"><label>Duração</label><input type="text" id="fDuracao" placeholder="Ex: cena"/></div>
-    </div>
-    <!-- Resistência -->
-    <div class="fg">
-      <label>Resistência</label>
-      <input type="text" id="fResist" placeholder="Ex: Vontade"/>
-    </div>
-
-    <div class="form-section">DESCRIÇÃO</div>
-    <div class="fg">
-      <label>Descrição</label>
-      <textarea id="fDesc" rows="3" placeholder="Descreva o efeito do ritual…"></textarea>
-    </div>
-
-    <div class="form-section">NÍVEIS</div>
-    <div class="fg">
-      <label>Discente</label>
-      <textarea id="fDisc" rows="2" placeholder="Ex: muda o bônus para +2. Requer 3º círculo."></textarea>
-    </div>
-    <div class="fg">
-      <label>Verdadeiro</label>
-      <textarea id="fVerd" rows="2" placeholder="Ex: muda o bônus para +3. Requer 4º círculo e afinidade."></textarea>
-    </div>
-
     <div class="modal-footer">
-      <button class="btn-m btn-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="btn-m btn-save" onclick="saveRitual()"><span id="btnSaveLabel">SALVAR RITUAL</span></button>
+      <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="document.getElementById('ritualForm').requestSubmit()" id="btnSave">Criar Ritual</button>
     </div>
   </div>
 </div>
 
 <script>
 // ============================================================
-//  ELEMENT → COLOR MAP
-// ============================================================
-const ELEMENT_PALETTE = {
-  sangue:      { color:'#c0392b',  bg:'rgba(192,57,43,0.08)',   border:'rgba(192,57,43,0.22)' },
-  morte:       { color:'#1a3a5c',  bg:'rgba(26,58,92,0.08)',    border:'rgba(26,58,92,0.22)'  },
-  energia:     { color:'#6c3483',  bg:'rgba(108,52,131,0.08)',  border:'rgba(108,52,131,0.22)'},
-  conhecimento:{ color:'#b7950b',  bg:'rgba(183,149,11,0.08)',  border:'rgba(183,149,11,0.22)'},
-  medo:        { color:'#ffffff',  bg:'#111111',                border:'#111111',              inverted:true }
-};
-
-function getElementStyle(elementText) {
-  if (!elementText) return { color:'#111111', bg:'rgba(0,0,0,0.04)', border:'rgba(0,0,0,0.18)' };
-  const key = elementText.trim().split(/\s+/)[0].toLowerCase();
-  return ELEMENT_PALETTE[key] || { color:'#111111', bg:'rgba(0,0,0,0.04)', border:'rgba(0,0,0,0.18)' };
-}
-
-// ============================================================
-//  STATE
-// ============================================================
-let rituais   = [];
-let editingId = null;   // null = create mode | number = editing that ritual's id
-
-// ============================================================
-//  MODAL OPEN / CLOSE
-// ============================================================
-function openModal() {
-  document.getElementById('modalOverlay').classList.add('active');
-  document.getElementById('fName').focus();
-}
-
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-  clearForm();
-  editingId = null;
-  setModalMode('create');
-}
-
-document.getElementById('modalOverlay').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
-
-// ============================================================
-//  MODAL MODE LABEL SWAP
-// ============================================================
-function setModalMode(mode) {
-  const title = document.getElementById('modalTitle');
-  const btn   = document.getElementById('btnSaveLabel');
-  if (mode === 'edit') {
-    title.textContent = 'EDITAR RITUAL';
-    btn.textContent   = 'ATUALIZAR RITUAL';
-  } else {
-    title.textContent = 'NOVO RITUAL';
-    btn.textContent   = 'SALVAR RITUAL';
-  }
-}
-
-// ============================================================
-//  FORM HELPERS
-// ============================================================
-const FIELD_IDS = ['fName','fElement','fExec','fAlcance','fAlvo','fDuracao','fResist','fDesc','fDisc','fVerd'];
-
-function clearForm() {
-  FIELD_IDS.forEach(id => { document.getElementById(id).value = ''; });
-}
-
-function fillForm(r) {
-  document.getElementById('fName').value     = r.nome        || '';
-  document.getElementById('fElement').value  = r.elemento    || '';
-  document.getElementById('fExec').value     = r.execucao    || '';
-  document.getElementById('fAlcance').value  = r.alcance     || '';
-  document.getElementById('fAlvo').value     = r.alvo        || '';
-  document.getElementById('fDuracao').value  = r.duracao     || '';
-  document.getElementById('fResist').value   = r.resistencia || '';
-  document.getElementById('fDesc').value     = r.descricao   || '';
-  document.getElementById('fDisc').value     = r.discente    || '';
-  document.getElementById('fVerd').value     = r.verdadeiro  || '';
-}
-
-// ============================================================
-//  EDIT — populate form with existing ritual
-// ============================================================
-function editRitual(id) {
-  const ritual = rituais.find(r => r.id === id);
-  if (!ritual) return;
-  editingId = id;
-  fillForm(ritual);
-  setModalMode('edit');
-  openModal();
-}
-
-// ============================================================
-//  SAVE (create or update)
-// ============================================================
-function saveRitual() {
-  const nameEl = document.getElementById('fName');
-  const name   = nameEl.value.trim();
-  if (!name) {
-    nameEl.classList.add('error');
-    nameEl.focus();
-    setTimeout(() => nameEl.classList.remove('error'), 1500);
-    return;
-  }
-
-  const data = {
-    nome:        name,
-    elemento:    document.getElementById('fElement').value.trim(),
-    execucao:    document.getElementById('fExec').value.trim(),
-    alcance:     document.getElementById('fAlcance').value.trim(),
-    alvo:        document.getElementById('fAlvo').value.trim(),
-    duracao:     document.getElementById('fDuracao').value.trim(),
-    resistencia: document.getElementById('fResist').value.trim(),
-    descricao:   document.getElementById('fDesc').value.trim(),
-    discente:    document.getElementById('fDisc').value.trim(),
-    verdadeiro:  document.getElementById('fVerd').value.trim()
-  };
-
-  if (editingId !== null) {
-    // --- UPDATE existing ---
-    const idx = rituais.findIndex(r => r.id === editingId);
-    if (idx !== -1) {
-      rituais[idx] = { id: editingId, ...data };
-      if (useFirebase) saveToFirebase(rituais[idx]);
-    }
-  } else {
-    // --- CREATE new ---
-    const newRitual = { id: Date.now(), ...data };
-    rituais.unshift(newRitual);
-    if (useFirebase) saveToFirebase(newRitual);
-  }
-
-  saveToLocalStorage(); // Sempre salvar backup local
-  render();
-  closeModal();
-}
-
-// ============================================================
-//  REMOVE
-// ============================================================
-function removeRitual(id) {
-  if (useFirebase) deleteFromFirebase(id);
-  rituais = rituais.filter(r => r.id !== id);
-  saveToLocalStorage(); // Sempre salvar backup local
-  render();
-}
-
-// ============================================================
-//  RENDER
-// ============================================================
-function render() {
-  const list = document.getElementById('ritualList');
-  if (!rituais.length) {
-    list.innerHTML = '<div class="empty-state">Nenhum ritual registrado ainda.</div>';
-    return;
-  }
-  list.innerHTML = rituais.map((r, i) => {
-    const s = getElementStyle(r.elemento);
-
-    const metas = [
-      ['Execução', r.execucao],
-      ['Alcance',  r.alcance],
-      ['Alvo',     r.alvo],
-      ['Duração',  r.duracao]
-    ].filter(m => m[1]);
-
-    return `
-    <div class="ritual-card" style="animation-delay:${i*0.04}s">
-      <div class="card-stripe" style="background:${s.color}"></div>
-
-      <div class="card-head">
-        <div class="card-head-left">
-          <span class="card-name">${esc(r.nome)}</span>
-          ${r.elemento ? `<span class="card-el" style="background:${s.bg};color:${s.color};border-color:${s.border}">${esc(r.elemento)}</span>` : ''}
-        </div>
-        <div class="card-actions">
-          <button class="btn-ed" onclick="editRitual(${r.id})" title="Editar">✎</button>
-          <button class="btn-rm" onclick="removeRitual(${r.id})" title="Remover">✕</button>
-        </div>
-      </div>
-
-      ${metas.length ? `<div class="card-meta">${metas.map(m=>`<div class="meta-item"><em>${m[0]}</em>${esc(m[1])}</div>`).join('')}</div>` : ''}
-
-      ${r.resistencia ? `
-        <hr class="card-divider"/>
-        <div class="card-resist">
-          <em>Resistência</em>
-          ${esc(r.resistencia)}
-        </div>` : ''}
-
-      ${r.descricao ? `
-        <hr class="card-divider"/>
-        <p class="card-desc" style="border-left-color:${s.color}">${esc(r.descricao)}</p>` : ''}
-
-      ${(r.discente||r.verdadeiro) ? `
-        <hr class="card-divider"/>
-        <div class="card-levels">
-          ${r.discente  ? `<div class="card-lv"><span class="lv-badge disc">Discente</span><span class="lv-text">${esc(r.discente)}</span></div>` : ''}
-          ${r.verdadeiro? `<div class="card-lv"><span class="lv-badge verd">Verdadeiro</span><span class="lv-text">${esc(r.verdadeiro)}</span></div>` : ''}
-        </div>` : ''}
-    </div>`;
-  }).join('');
-}
-
-function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
-
-// ============================================================
-//  FIREBASE CONFIG - SUBSTITUA COM SUAS CREDENCIAIS
+//  FIREBASE CONFIG
 // ============================================================
 const firebaseConfig = {
   apiKey: "AIzaSyCXezUu7oYg3AQORYj2oZwKzsKJj7oPoug",
@@ -730,107 +606,407 @@ const firebaseConfig = {
 };
 
 // ============================================================
-//  PERSISTENCE - Firebase + localStorage
+//  STATE
 // ============================================================
-const KEY = 'op-grimorio-rituais';
+let rituaisSistema = []; // Carregados do JSON
+let rituaisCustomizados = []; // Criados pelo usuário
+let meusRituais = []; // IDs dos rituais salvos
+let currentTab = 'biblioteca';
+let filtroElemento = 'todos';
+let filtroCirculo = 'todos';
+let editingId = null;
 let db = null;
 let useFirebase = false;
 
-// Inicializar Firebase
+// ============================================================
+//  ELEMENT COLORS
+// ============================================================
+const ELEMENT_COLORS = {
+  'Sangue': { color: '#c0392b', bg: 'rgba(192,57,43,0.08)', border: 'rgba(192,57,43,0.22)' },
+  'Morte': { color: '#1a3a5c', bg: 'rgba(26,58,92,0.08)', border: 'rgba(26,58,92,0.22)' },
+  'Energia': { color: '#6c3483', bg: 'rgba(108,52,131,0.08)', border: 'rgba(108,52,131,0.22)' },
+  'Conhecimento': { color: '#b7950b', bg: 'rgba(183,149,11,0.08)', border: 'rgba(183,149,11,0.22)' },
+  'Medo': { color: '#ffffff', bg: '#111111', border: '#111111', inverted: true },
+  'Múltiplo': { color: '#5d4e37', bg: 'rgba(93,78,55,0.08)', border: 'rgba(93,78,55,0.22)' }
+};
+
+function getElementColor(elem) {
+  if (!elem) return ELEMENT_COLORS['Múltiplo'];
+  const key = elem.trim().split(/\s+/)[0]; // Pega primeira palavra
+  return ELEMENT_COLORS[key] || ELEMENT_COLORS['Múltiplo'];
+}
+
+// ============================================================
+//  RITUAIS DO SISTEMA (continuará carregando do JSON externo)
+// ============================================================
+// Por enquanto vou embedir alguns exemplos, depois carregamos do JSON
+rituaisSistema = JSON.parse(`[{"id":"ritual_001","nome":"Capturar o Coração","elemento":"Sangue","circulo":4,"execucao":"padrão","alcance":"curto","alvo":"1 pessoa","duracao":"cena","resistencia":"Vontade parcial","descricao":"Você desperta paixão doentia por você no alvo. No início do turno dele, testa Vontade. Se falhar, age para ajudá-lo. Se passar dois turnos seguidos, termina.","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_002","nome":"Chamas do Caos","elemento":"Energia","circulo":2,"execucao":"padrão","alcance":"curto","alvo":"veja texto","duracao":"cena","resistencia":"","descricao":"Você manipula fogo. Escolha: Chamejar (+1d6 fogo), Esquentar (1d6/rodada), Extinguir (apaga chama), ou Modelar (move 9m/rodada).","discente":"Discente (+3 PE): sustentada. Projeta labareda 4d6 (Reflexos ½).","verdadeiro":"Verdadeiro (+7 PE): 8d6. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_003","nome":"Cicatrização","elemento":"Morte","circulo":1,"execucao":"padrão","alcance":"toque","alvo":"1 ser","duracao":"instantânea","resistencia":"","descricao":"Acelera cicatrização. O alvo recupera 3d8+3 PV, mas envelhece 1 ano.","discente":"Discente (+2 PE): 5d8+5 PV. Requer 2º círculo.","verdadeiro":"Verdadeiro (+9 PE): alcance curto, alvos escolhidos, 7d8+7 PV. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_004","nome":"Cinerária","elemento":"Medo","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"nuvem 6m raio","duracao":"cena","resistencia":"","descricao":"Névoa paranormal. Rituais dentro da névoa têm DT +5.","discente":"Discente (+2 PE): rituais custam -2 PE.","verdadeiro":"Verdadeiro (+5 PE): rituais têm dano maximizado.","tipo":"sistema"},{"id":"ritual_005","nome":"Coincidência Forçada","elemento":"Energia","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"cena","resistencia":"","descricao":"Manipula o caos para dar sorte. O alvo recebe +2 em testes de perícias.","discente":"Discente (+2 PE): alvos escolhidos. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): alvos escolhidos, +5. Requer 3º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_006","nome":"Compreensão Paranormal","elemento":"Conhecimento","circulo":1,"execucao":"padrão","alcance":"toque","alvo":"1 ser ou objeto","duracao":"cena","resistencia":"Vontade anula","descricao":"Compreende linguagem humana em objetos/pessoas ou sentimentos básicos em animais.","discente":"Discente (+2 PE): alcance curto, alvos escolhidos. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): pessoal. Fala/entende/escreve qualquer idioma humano. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_007","nome":"Conhecendo o Medo","elemento":"Medo","circulo":4,"execucao":"padrão","alcance":"toque","alvo":"1 pessoa","duracao":"instantânea","resistencia":"Vontade parcial","descricao":"Medo absoluto. Se falhar, Sanidade reduzida a 0 e enlouquece. Se passar, 10d6 dano mental e apavorado 1 rodada.","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_008","nome":"Consumir Manancial","elemento":"Morte","circulo":1,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"instantânea","resistencia":"","descricao":"Suga tempo de vida da natureza, gerando Lodo. Recebe 3d6 PV temporários até o fim da cena.","discente":"Discente (+2 PE): 6d6 PV temporários. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): área 6m. Causa 3d6 Morte em seres, recebe PV temp = dano total. Requer 3º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_009","nome":"Contato Paranormal","elemento":"Conhecimento","circulo":3,"execucao":"completa","alcance":"pessoal","alvo":"você","duracao":"1 dia","resistencia":"","descricao":"Barganha com Conhecimento. Recebe seis d6. Pode gastar um d6 em perícia. Se rolar 6, perde 2 Sanidade.","discente":"Discente (+4 PE): d8 (8 = -3 San). Requer 4º círculo.","verdadeiro":"Verdadeiro (+9 PE): d12 (12 = -5 San). Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_010","nome":"Contenção Fantasmagórica","elemento":"Energia","circulo":2,"execucao":"padrão","alcance":"médio","alvo":"1 ser","duracao":"cena","resistencia":"Reflexos anula","descricao":"Três laços de Energia agarram o alvo. Cada laço: Defesa 10, 10 PV, RD 5, imune a Energia.","discente":"Discente (+3 PE): 6 laços, min 2 por alvo. Requer 3º círculo.","verdadeiro":"Verdadeiro (+5 PE): como discente. Laço destruído causa 2d6+2 Energia. Requer 3º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_011","nome":"Controle Mental","elemento":"Conhecimento","circulo":4,"execucao":"padrão","alcance":"médio","alvo":"1 pessoa ou animal","duracao":"sustentada","resistencia":"Vontade parcial","descricao":"Domina a mente do alvo. Obedece comandos (exceto suicidas). Testa Vontade no fim do turno para se livrar.","discente":"Discente (+5 PE): até 5 alvos.","verdadeiro":"Verdadeiro (+10 PE): até 10 alvos. Requer afinidade.","tipo":"sistema"},{"id":"ritual_012","nome":"Convocação Instantânea","elemento":"Energia","circulo":3,"execucao":"padrão","alcance":"ilimitado","alvo":"1 objeto até 2 espaços","duracao":"instantânea","resistencia":"Vontade anula","descricao":"Invoca objeto preparado com símbolo. Se empunhado, alvo testa Vontade. Pode devolver com ação de movimento por 1h.","discente":"Discente (+4 PE): até 10 espaços.","verdadeiro":"Verdadeiro (+9 PE): recipiente Médio com 10 espaços, permanente. Perde 1 PE permanente. Requer utensílio cat. II.","tipo":"sistema"},{"id":"ritual_013","nome":"Convocar o Algoz","elemento":"Morte","circulo":4,"execucao":"padrão","alcance":"1,5m","alvo":"1 pessoa","duracao":"sustentada","resistencia":"Vontade/Fortitude parcial","descricao":"Cria algoz dos medos do alvo. Flutua 12m/turno. Em curto: Vontade ou abalado. Adjacente: Fortitude ou colapso (0 PV); se passar, 6d6 Morte (min 1 PV).","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_014","nome":"Corpo Adaptado","elemento":"Sangue","circulo":1,"execucao":"padrão","alcance":"toque","alvo":"1 pessoa ou animal","duracao":"cena","resistencia":"","descricao":"Imune a calor/frio extremos, respira água/ar, não sufoca em fumaça.","discente":"Discente (+2 PE): duração 1 dia.","verdadeiro":"Verdadeiro (+5 PE): alcance curto, alvos escolhidos.","tipo":"sistema"},{"id":"ritual_015","nome":"Decadência","elemento":"Morte","circulo":1,"execucao":"padrão","alcance":"toque","alvo":"1 ser","duracao":"instantânea","resistencia":"Fortitude reduz ½","descricao":"Espirais definhantes. O alvo sofre 2d8+2 dano de Morte.","discente":"Discente (+2 PE): sem resistência, 3d8+3. Ataque corpo a corpo soma danos.","verdadeiro":"Verdadeiro (+5 PE): pessoal, explosão 6m, 8d8+8. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_016","nome":"Definhar","elemento":"Morte","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"cena","resistencia":"Fortitude parcial","descricao":"Lufada de cinzas drena forças. Alvo fica fatigado (se passar, vulnerável).","discente":"Discente (+2 PE): exausto (se passar, fatigado). Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): como discente, até 5 alvos. Requer 3º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_017","nome":"Deflagração de Energia","elemento":"Energia","circulo":4,"execucao":"completa","alcance":"pessoal","alvo":"explosão 15m","duracao":"instantânea","resistencia":"Fortitude parcial","descricao":"Explosão intensa. 3d10x10 dano de Energia. Itens tecnológicos quebram. Você não é afetado. Se passar: ½ dano, itens voltam em 1d4 rodadas.","discente":"","verdadeiro":"Verdadeiro (+5 PE): afeta apenas alvos escolhidos.","tipo":"sistema"},{"id":"ritual_018","nome":"Desacelerar Impacto","elemento":"Morte","circulo":2,"execucao":"reação","alcance":"curto","alvo":"1 ser ou 10 espaços objetos","duracao":"até chegar ao solo/cena","resistencia":"","descricao":"Queda lenta. 18m/rodada, sem dano. Projéteis causam ½ dano.","discente":"","verdadeiro":"Verdadeiro (+3 PE): até 100 espaços.","tipo":"sistema"},{"id":"ritual_019","nome":"Descarnar","elemento":"Sangue","circulo":2,"execucao":"padrão","alcance":"toque","alvo":"1 ser","duracao":"instantânea","resistencia":"Fortitude parcial","descricao":"Lacerações manifestam-se. 6d8 dano (½ corte, ½ Sangue) e hemorragia (2d8 Morte/turno, Fortitude para estancar). Se passar: ½ dano, sem hemorragia.","discente":"Discente (+3 PE): 10d8 direto, 4d8 hemorragia. Requer 3º círculo.","verdadeiro":"Verdadeiro (+7 PE): alvo você, sustentada. Ataques corpo a corpo +4d8 Sangue e hemorragia auto. Requer 3º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_020","nome":"Detecção de Ameaças","elemento":"Conhecimento","circulo":2,"execucao":"padrão","alcance":"pessoal","alvo":"esfera 18m","duracao":"cena","resistencia":"","descricao":"Percepção aguçada. Quando hostil/armadilha entra: ação movimento, Percepção CD 20 para direção/distância.","discente":"Discente (+3 PE): não fica desprevenido, +5 resistência vs armadilhas. Requer 3º círculo.","verdadeiro":"Verdadeiro (+5 PE): duração 1 dia, benefícios discente. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_021","nome":"Dissipar Ritual","elemento":"Medo","circulo":3,"execucao":"padrão","alcance":"médio","alvo":"1 ser/objeto ou esfera 3m","duracao":"instantânea","resistencia":"","descricao":"Dissipa rituais ativos. Ocultismo anula rituais com DT ≤ resultado. Item amaldiçoado vira mundano por 1 dia (Vontade anula se em posse).","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_022","nome":"Dissonância Acústica","elemento":"Energia","circulo":2,"execucao":"padrão","alcance":"médio","alvo":"esfera 6m","duracao":"sustentada","resistencia":"","descricao":"Dissonância sonora. Seres na área ficam surdos e não conjuram rituais.","discente":"Discente (+1 PE): alvo 1 objeto. Silêncio 3m. Se involuntário, Vontade anula.","verdadeiro":"Verdadeiro (+3 PE): cena. Sons não saem, mas dentro se ouve/fala/conjura normal. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_023","nome":"Distorção Temporal","elemento":"Morte","circulo":4,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"veja texto","resistencia":"","descricao":"Bolsão temporal 3 rodadas. Você age, mas não se move nem interage. Efeitos contínuos não afetam. Efeitos iniciados não afetam área.","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_024","nome":"Distorcer Aparência","elemento":"Sangue","circulo":1,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"cena","resistencia":"Vontade desacredita","descricao":"Modifica aparência (altura, peso, voz, digital, córnea). +10 Enganação para disfarce. Não ganha habilidades da forma.","discente":"Discente (+2 PE): alcance curto, 1 ser. Involuntário testa Vontade.","verdadeiro":"Verdadeiro (+5 PE): como discente, seres escolhidos. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_025","nome":"Eco Espiral","elemento":"Morte","circulo":2,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"2 rodadas","resistencia":"Fortitude reduz ½","descricao":"Cria cópia de cinzas. T1: concentra (padrão) ou dissipa. T2: descarrega (padrão): dano Morte = dano sofrido em T1. Se não, dissipa.","discente":"Discente (+3 PE): até 5 alvos.","verdadeiro":"Verdadeiro (+7 PE): até 3 rodadas (concentra T1-T2, descarrega T3). Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_026","nome":"Eletrocussão","elemento":"Energia","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"1 ser ou objeto","duracao":"instantânea","resistencia":"Fortitude parcial","descricao":"Corrente elétrica. 3d6 eletricidade e vulnerável 1 rodada (se passar: ½, sem condição). Vs eletrônicos: dobro, ignora RD.","discente":"Discente (+2 PE): linha 30m, 6d6 em todos. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): alvos escolhidos, relâmpagos, 8d6 cada. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_027","nome":"Embaralhar","elemento":"Energia","circulo":1,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"cena","resistencia":"","descricao":"Três cópias ilusórias. +6 Defesa. Cada erro destrói cópia (-2 Defesa). Precisa ver cópias.","discente":"Discente (+2 PE): 5 cópias, +10 Defesa. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): 8 cópias, +16 Defesa. Cópia destruída: clarão, ofuscado 1 rodada. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_028","nome":"Enfeitiçar","elemento":"Conhecimento","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"1 pessoa","duracao":"cena","resistencia":"Vontade anula","descricao":"Alvo fica prestativo. +10 Diplomacia. Hostil/combate: +5 resistência. Ação hostil dissipa.","discente":"Discente (+2 PE): sugere ação aceitável. Ao executar, termina. Pode ter condição. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): todos no alcance. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_029","nome":"Esconder dos Olhos","elemento":"Conhecimento","circulo":2,"execucao":"livre","alcance":"pessoal","alvo":"você","duracao":"1 rodada","resistencia":"","descricao":"Invisível (camuflagem total, +15 Furtividade). Termina se atacar/habilidade hostil. Objetos apanhados ficam invisíveis.","discente":"Discente (+3 PE): sustentada. Esfera 3m invisível. Sai da esfera = visível. Ação hostil = visível. Requer 3º círculo.","verdadeiro":"Verdadeiro (+7 PE): padrão, toque, 1 ser, sustentada. Não dissipa ao atacar. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_030","nome":"Espirais da Perdição","elemento":"Morte","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"cena","resistencia":"","descricao":"Espirais tornam movimentos lentos. -1 em testes de ataque.","discente":"Discente (+2 PE): -2. Requer 2º círculo.","verdadeiro":"Verdadeiro (+8 PE): -2, seres escolhidos. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_031","nome":"Ferver Sangue","elemento":"Sangue","circulo":3,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"sustentada","resistencia":"Fortitude parcial","descricao":"Sangue ferve. Início do turno: Fortitude. Falha: 4d8 Sangue e fraco. Passa: ½, sem fraco. Passar 2x seguidas: termina.","discente":"","verdadeiro":"Verdadeiro (+4 PE): seres escolhidos. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_032","nome":"Fim Inevitável","elemento":"Morte","circulo":4,"execucao":"completa","alcance":"extremo","alvo":"buraco negro 1,5m","duracao":"4 rodadas","resistencia":"Fortitude parcial","descricao":"Vácuo. Início dos 4 turnos: todos a 90m testam Fortitude. Falha: caído, puxado 30m. Pode segurar (+5 resistência, movimento). Tocando vácuo: 100 Morte/rodada.","discente":"Discente (+5 PE): 5 rodadas, você não é afetado. Requer afinidade.","verdadeiro":"Verdadeiro (+10 PE): 6 rodadas, seres escolhidos não afetados. Requer afinidade.","tipo":"sistema"},{"id":"ritual_033","nome":"Flagelo de Sangue","elemento":"Sangue","circulo":2,"execucao":"padrão","alcance":"toque","alvo":"1 pessoa","duracao":"cena","resistencia":"Fortitude parcial","descricao":"Marca escarificada + ordem. Desobedecer: 10d6 Sangue e enjoado (Fort ½, sem enjoado). Passar 2x: marca some.","discente":"Discente (+3 PE): 1 ser (exceto Sangue). Requer 3º círculo.","verdadeiro":"Verdadeiro (+7 PE): como discente, 1 dia. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_034","nome":"Forma Monstruosa","elemento":"Sangue","circulo":3,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"cena","resistencia":"","descricao":"Transforma em criatura Sangue Grande. +5 ataque/dano corpo a corpo, 30 PV temp. Mente tomada por fúria: não fala/conjura, ataca ser mais próximo (aliado: Vontade CD ritual para escolher).","discente":"Discente (+3 PE): imune a atordoamento, fadiga, sangramento, sono, veneno.","verdadeiro":"Verdadeiro (+9 PE): +10 ataque/dano, 50 PV temp. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_035","nome":"Fortalecimento Sensorial","elemento":"Sangue","circulo":1,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"cena","resistencia":"","descricao":"Sentidos potencializados. +1 em Investigação, Luta, Percepção, Pontaria.","discente":"Discente (+2 PE): inimigos -1 ataque vs você. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): imune a surpreendido/desprevenido, +10 Defesa e Reflexos. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_036","nome":"Hemofagia","elemento":"Sangue","circulo":2,"execucao":"padrão","alcance":"toque","alvo":"1 ser","duracao":"instantânea","resistencia":"Fortitude reduz ½","descricao":"Arranca sangue pela pele. 6d6 Sangue. Você recupera ½ do dano em PV.","discente":"Discente (+3 PE): sem resistência. Ataque corpo a corpo soma danos, recupera ½ total.","verdadeiro":"Verdadeiro (+7 PE): pessoal, você, cena. Padrão: toca 1 ser, 4d6, recupera ½. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_037","nome":"Inexistir","elemento":"Conhecimento","circulo":4,"execucao":"padrão","alcance":"toque","alvo":"1 ser","duracao":"instantânea","resistencia":"Vontade parcial","descricao":"Apaga da existência. Levita, textos brilham na pele. 10d12+10 Conhecimento. Se passar: 2d12, debilitado 1 rodada. Se PV≤0: apagado completamente.","discente":"Discente (+5 PE): 15d12+15, resistido 3d12.","verdadeiro":"Verdadeiro (+10 PE): 20d12+20, resistido 4d12. Requer afinidade.","tipo":"sistema"},{"id":"ritual_038","nome":"Invadir Mente","elemento":"Conhecimento","circulo":2,"execucao":"padrão","alcance":"médio ou toque","alvo":"1 ser ou 2 pessoas","duracao":"instantânea ou 1 dia","resistencia":"Vontade parcial ou nenhuma","descricao":"Rajada Mental: 6d6 Conhecimento, atordoado 1 rodada (Vontade ½, sem atordoado, 1x/cena). Ligação Telepática: 2 pessoas se comunicam por 1 dia.","discente":"Discente (+3 PE): Rajada 10d6. Ligação: vê/ouve pelos sentidos (Vontade suprime 1h). Requer 3º círculo.","verdadeiro":"Verdadeiro (+7 PE): Rajada 10d6, seres escolhidos. Ligação: até 5 pessoas. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_039","nome":"Invólucro de Carne","elemento":"Sangue","circulo":4,"execucao":"padrão","alcance":"curto","alvo":"1 clone seu","duracao":"cena","resistencia":"","descricao":"Clone idêntico emerge do sangue. Sem consciência. Movimento: dá ordem. Ou controla ativamente (transe). Percepção CD ritual para notar que é cópia. 0 PV ou sair alcance: desfaz.","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_040","nome":"Lâmina do Medo","elemento":"Medo","circulo":4,"execucao":"padrão","alcance":"toque","alvo":"1 ser","duracao":"instantânea","resistencia":"Fortitude parcial","descricao":"Fenda na Realidade. Falha: PV a 0, morrendo. Passa: 10d8 Medo (ignora RD), apavorado 1 rodada. Sobreviver morrendo: ferimento nunca cicatriza, dor constante. Requer poder de trilha específico.","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_041","nome":"Localização","elemento":"Conhecimento","circulo":2,"execucao":"padrão","alcance":"pessoal","alvo":"círculo 90m","duracao":"cena","resistencia":"","descricao":"Encontra pessoa/objeto. Indica direção/distância do mais próximo. Pode mover. Bloqueado por chumbo.","discente":"Discente (+3 PE): toque, 1 pessoa, 1h. Descobre caminho para entrar/sair de lugar. Requer 2º círculo.","verdadeiro":"Verdadeiro (+7 PE): área círculo 1km. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_042","nome":"Luz","elemento":"Energia","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"1 objeto","duracao":"cena","resistencia":"Vontade anula","descricao":"Objeto emite luz colorida 9m raio. Pode guardar para interromper. Involuntário: Vontade.","discente":"Discente (+2 PE): longo, 4 esferas. Move com ação livre. 6m raio cada. Esfera em ser: ofuscado, sem camuflagem. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): luz cálida. Aliados +1 Vontade, inimigos ofuscados. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_043","nome":"Medo Tangível","elemento":"Medo","circulo":4,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"cena","resistencia":"","descricao":"Corpo vira manifestação do Medo. Imune a atordoado, cego, debilitado, enjoado, envenenado, exausto, fatigado, fraco, lento, ofuscado, paralisado, doenças, venenos. Sem dano adicional de críticos/furtivos. Dano balístico/corte/impacto/perfuração não reduz abaixo de 1 PV.","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_044","nome":"Mergulho Mental","elemento":"Conhecimento","circulo":3,"execucao":"padrão","alcance":"toque","alvo":"1 pessoa","duracao":"sustentada","resistencia":"Vontade parcial","descricao":"Mergulha nos pensamentos. Você fica desprevenido. Início do turno: alvo testa Vontade. Falha: responde sim/não, não pode mentir.","discente":"","verdadeiro":"Verdadeiro (+4 PE): 1 dia, ilimitado. Precisa cuba ouro + água + máscara (cat II), info/objeto/foto do alvo. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_045","nome":"Miasma Entrópico","elemento":"Morte","circulo":2,"execucao":"padrão","alcance":"médio","alvo":"nuvem 6m","duracao":"instantânea","resistencia":"Fortitude parcial","descricao":"Explosão tóxica. 4d8 químico e enjoado 1 rodada (Fort ½, sem enjoado).","discente":"Discente (+3 PE): 6d8 Morte.","verdadeiro":"Verdadeiro (+7 PE): como discente, 3 rodadas. Iniciar turno na área: sofre dano. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_046","nome":"Nuvem de Cinzas","elemento":"Morte","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"nuvem 6m raio x 6m altura","duracao":"cena","resistencia":"","descricao":"Fuligem obscurece visão. Até 1,5m: camuflagem leve. 3m+: camuflagem total. Vento forte dispersa em 4 rodadas, vendaval em 1.","discente":"Discente (+2 PE): escolhe seres, enxergam através. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): espessa. Deslocamento 3m, -2 ataque. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_047","nome":"Ódio Incontrolável","elemento":"Sangue","circulo":1,"execucao":"padrão","alcance":"toque","alvo":"1 pessoa","duracao":"cena","resistencia":"","descricao":"Frenesi. +2 ataque/dano corpo a corpo, resistência 5 a balístico/corte/impacto/perfuração. Não faz ações calmas/concentração, deve atacar (aliado se único ao alcance).","discente":"Discente (+2 PE): ação agredir = ataque adicional no mesmo alvo.","verdadeiro":"Verdadeiro (+5 PE): +5 ataque/dano, sofre ½ dano balístico/corte/impacto/perfuração. Requer 3º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_048","nome":"Ouvir os Sussurros","elemento":"Conhecimento","circulo":1,"execucao":"completa","alcance":"pessoal","alvo":"você","duracao":"instantânea","resistencia":"","descricao":"Consulta sussurros sobre ação iminente (mesma cena). Pergunta sim/não. 1d6: 2-6 funciona (sim/não/sim e não), 1 falha (diz não). Repetir = primeiro resultado.","discente":"Discente (+2 PE): 1 min. Evento até 1 dia futuro. 2-6: resposta/profecia/enigma. 1: sem resposta. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): 10 min, 5 rodadas. 1 pergunta/rodada (sim/não/ninguém sabe). Testa cada. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_049","nome":"Paradoxo","elemento":"Morte","circulo":2,"execucao":"padrão","alcance":"médio","alvo":"esfera 6m","duracao":"instantânea","resistencia":"Fortitude reduz ½","descricao":"Implosão temporal. 6d6 Morte em todos.","discente":"Discente (+3 PE): esfera 1,5m, cena. 4d6 Morte no espaço. Move 9m com movimento.","verdadeiro":"Verdadeiro (+7 PE): 13d6. PV a 0: Fortitude ou vira cinzas (morte imediata). Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_050","nome":"Perturbação","elemento":"Conhecimento","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"1 pessoa","duracao":"1 rodada","resistencia":"Vontade anula","descricao":"Ordem que alvo ouve. Escolha: Fuja (gasta turno fugindo), Largue (solta itens), Pare (pasmo), Sente-se (senta, não levanta), Venha (gasta turno aproximando).","discente":"Discente (+2 PE): 1 ser. Adiciona: Sofra (3d8 Conhecimento, abalado 1 rodada).","verdadeiro":"Verdadeiro (+5 PE): até 5 seres OU adiciona: Ataque (agredir em alvo escolhido alcance médio). Requer 3º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_051","nome":"Poeira da Podridão","elemento":"Morte","circulo":3,"execucao":"padrão","alcance":"médio","alvo":"nuvem 6m","duracao":"sustentada","resistencia":"Fortitude (veja texto)","descricao":"Nuvem apodrecente. Ao conjurar e início de seus turnos: 4d8 Morte (Fort ½). Falha: não recupera PV por 1 rodada.","discente":"","verdadeiro":"Verdadeiro (+4 PE): 4d8+16.","tipo":"sistema"},{"id":"ritual_052","nome":"Polarização Caótica","elemento":"Energia","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"você","duracao":"sustentada","resistencia":"Vontade anula","descricao":"Aura magnética. Escolha: Atrair (movimento puxa metal ≤2 espaços), Repelir (resistência 5 a balístico/corte/impacto/perfuração).","discente":"Discente (+2 PE): instantânea. Arremessa até 10 objetos/10 espaços. 1 dano/espaço (leve) a 1d6/espaço (duro). Reflexos ½. Vontade anula. Ser arremessado vs sólido: 1d6/3m.","verdadeiro":"Verdadeiro (+5 PE): médio, instantânea. Movimento levita/move ser/objeto ≤10 espaços por até 9m. Vontade anula. Cai se sair alcance/terminar.","tipo":"sistema"},{"id":"ritual_053","nome":"Possessão","elemento":"Conhecimento","circulo":4,"execucao":"padrão","alcance":"longo","alvo":"1 pessoa viva ou morta","duracao":"1 dia","resistencia":"Vontade anula","descricao":"Projeta consciência no corpo. Assume controle total (vivo: troca de lugar). Usa sua ficha com atributos físicos/deslocamento do alvo. Passa: sabe tentativa, imune 1 dia. Alguém morre: mente sobrevivente presa (salvo ritual). Voltar: livre.","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_054","nome":"Presença do Medo","elemento":"Medo","circulo":4,"execucao":"padrão","alcance":"pessoal","alvo":"emanação 9m","duracao":"sustentada","resistencia":"","descricao":"Ondas de pavor. Ao conjurar e início de seus turnos: alvos na área sofrem 5d8 mental + 5d8 Medo (Vontade ½ ambos). Falha: atordoado 1 rodada (1x/cena).","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_055","nome":"Proteção contra Rituais","elemento":"Medo","circulo":2,"execucao":"padrão","alcance":"toque","alvo":"1 ser","duracao":"cena","resistencia":"","descricao":"Aura de Medo protege. Resistência 5 a dano paranormal, +5 resistência vs rituais/habilidades paranormais.","discente":"Discente (+3 PE): até 5 seres. Requer 3º círculo.","verdadeiro":"Verdadeiro (+6 PE): até 5 seres, resistência 10, +10 resistência. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_056","nome":"Purgatório","elemento":"Sangue","circulo":3,"execucao":"padrão","alcance":"curto","alvo":"área 6m raio","duracao":"sustentada","resistencia":"Fortitude parcial","descricao":"Poça de sangue pegajoso. Inimigos ficam vulneráveis a balístico/corte/impacto/perfuração. Sair: 6d6 Sangue, Fortitude para sair (se falha, perde ação movimento).","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_057","nome":"Rejeitar Névoa","elemento":"Medo","circulo":2,"execucao":"padrão","alcance":"curto","alvo":"nuvem 6m","duracao":"cena","resistencia":"","descricao":"Redemoinho de névoa. Rituais na área: +2 PE/círculo, execução +1 passo. Anula Cinerária (salvo ação completa/rodada para neutralizar).","discente":"Discente (+2 PE): DT -5.","verdadeiro":"Verdadeiro (+5 PE): como discente, dano sempre mínimo.","tipo":"sistema"},{"id":"ritual_058","nome":"Salto Fantasma","elemento":"Energia","circulo":3,"execucao":"padrão","alcance":"médio","alvo":"você","duracao":"instantânea","resistencia":"","descricao":"Vira Energia pura, viaja. Não precisa ver/linha de efeito (basta ter visto). Não pode aparecer em sólido (vai para próximo vazio). Não age após.","discente":"Discente (+2 PE): reação. Salta adjacente (1,5m), +10 Defesa e Reflexos vs ataque/efeito.","verdadeiro":"Verdadeiro (+4 PE): longo, você + 2 voluntários tocando.","tipo":"sistema"},{"id":"ritual_059","nome":"Sopro do Caos","elemento":"Energia","circulo":2,"execucao":"padrão","alcance":"médio","alvo":"varia","duracao":"sustentada","resistencia":"veja texto","descricao":"Altera massas de ar. Ascender (levita Médio, 6m/rodada até 30m, vulnerável, Fort início turno para sair, passar 2x = sai, derrubar = dano queda ou Fort nada contra corrente, empurrar voador Ocultismo vs Luta). Sopro (lufada cone 4,5m empurra Médio, Ocultismo vs Luta, mantém padrão). Vento (vento forte, pode aumentar efeito existente em 1, mantém movimento, ou reduz vento).","discente":"Discente (+3 PE): Grandes.","verdadeiro":"Verdadeiro (+9 PE): Enormes.","tipo":"sistema"},{"id":"ritual_060","nome":"Tecer Ilusão","elemento":"Conhecimento","circulo":1,"execucao":"padrão","alcance":"médio","alvo":"ilusão até 4 cubos 1,5m","duracao":"cena","resistencia":"Vontade desacredita","descricao":"Ilusão visual/sonora simples (1 voz/cubo). Sem cheiro/textura/temperatura/sons complexos. Atravessa sem dano. Dissipa se sair alcance.","discente":"Discente (+2 PE): 8 cubos, sustentada. Imagem+som combinados, odores, térmicas, táteis. Ser não atravessa sem Vontade. Livre: move/altera. Persiste 1 rodada após parar. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): perigo mortal. Ao conjurar e início turnos: interagindo testa Vontade. Falha: 6d6 Conhecimento, racionaliza. Passar 2x: anula. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_061","nome":"Tela de Ruído","elemento":"Energia","circulo":2,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"cena","resistencia":"","descricao":"Película absorve energia cinética. 30 PV temp (apenas vs balístico/corte/impacto/perfuração). OU reação ao sofrer dano: resistência 15 apenas vs aquele dano.","discente":"Discente (+3 PE): 60 PV temp, resistência 30.","verdadeiro":"Verdadeiro (+7 PE): curto, 1 ser/objeto Enorme. Esfera imóvel centrada. Nada passa. Pode respirar. Reflexos para evitar prisão. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_062","nome":"Teletransporte","elemento":"Energia","circulo":4,"execucao":"padrão","alcance":"toque","alvo":"até 5 seres voluntários","duracao":"instantânea","resistencia":"","descricao":"Transforma em energia, reaparece até 1000km. Ocultismo: CD 25 (lugar frequente), 30 (visitou 1x), 35 (descrição alheia). Passa: chega. Falha: lugar errado/distante (1d10x10 km). Falha 5+: falha, gasta PE, atordoado 1d4 rodadas.","discente":"","verdadeiro":"Verdadeiro (+5 PE): qualquer lugar na Terra.","tipo":"sistema"},{"id":"ritual_063","nome":"Tentáculos de Lodo","elemento":"Morte","circulo":3,"execucao":"padrão","alcance":"médio","alvo":"círculo 6m raio","duracao":"cena","resistencia":"","descricao":"Tentáculos de Lodo emergem. Ao conjurar e início seus turnos: agarrar Ocultismo vs todos. Vence: agarrado. Já agarrado: esmaga 4d6 (½ impacto, ½ Morte). Área = terreno difícil. Tentáculos imunes a dano.","discente":"","verdadeiro":"Verdadeiro (+5 PE): 9m raio, 6d6 dano.","tipo":"sistema"},{"id":"ritual_064","nome":"Terceiro Olho","elemento":"Conhecimento","circulo":1,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"cena","resistencia":"","descricao":"Olhos com sigilos. Enxerga auras paranormais alcance longo. Rituais, itens, criaturas: elemento e poder (fraca: 1º/VD≤80, moderada: 2-3º/VD 81-280, poderosa: 4º/VD 281+). Movimento: descobre se ser tem poderes/conjura e elementos.","discente":"Discente (+2 PE): 1 dia.","verdadeiro":"Verdadeiro (+5 PE): vê invisíveis (translúcidos).","tipo":"sistema"},{"id":"ritual_065","nome":"Transfigurar Água","elemento":"Energia","circulo":3,"execucao":"padrão","alcance":"longo","alvo":"esfera 30m","duracao":"cena","resistencia":"veja texto","descricao":"Energia em água. Escolha: Congelar (água vira gelo, nadando imóvel, Atletismo CD ritual para escapar). Derreter (gelo vira água, termina, pode criar terreno difícil). Enchente (nível +4,5m OU alvo embarcação +6m deslocamento). Evaporar (evapora instantânea, termina, 5d8 Energia Fort ½). Partir (nível -4,5m, cria caminho seco OU redemoinho prende barco, Pilotagem CD ritual para livrar).","discente":"","verdadeiro":"Verdadeiro (+5 PE): enchente +12m, evaporar 10d8.","tipo":"sistema"},{"id":"ritual_066","nome":"Transfigurar Terra","elemento":"Energia","circulo":3,"execucao":"padrão","alcance":"longo","alvo":"9 cubos 1,5m","duracao":"instantânea","resistencia":"veja texto","descricao":"Energia em terra/pedra/lama/argila/areia. Escolha: Amolecer (teto/coluna: desabamento 10d6 impacto Reflex ½. Piso: terreno difícil). Modelar (cria objetos Enormes ou paredes cobertura total RD 8, 50 PV/3m). Solidificar (lama/areia vira terra/pedra, pés agarrados, Atletismo CD ritual para soltar).","discente":"Discente (+3 PE): 15 cubos.","verdadeiro":"Verdadeiro (+7 PE): afeta minerais/metais. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_067","nome":"Transfusão Vital","elemento":"Sangue","circulo":2,"execucao":"padrão","alcance":"toque","alvo":"1 ser","duracao":"instantânea","resistencia":"","descricao":"Transfere energia vital. Perde até 30 PV, alvo recupera mesma quantidade. Não fica <1 PV.","discente":"Discente (+3 PE): até 50 PV. Requer 3º círculo.","verdadeiro":"Verdadeiro (+7 PE): até 100 PV. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_068","nome":"Velocidade Mortal","elemento":"Morte","circulo":2,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"sustentada","resistencia":"","descricao":"Distorce tempo, fica veloz. Movimento adicional/turno. Não pode conjurar.","discente":"Discente (+3 PE): padrão adicional.","verdadeiro":"Verdadeiro (+7 PE): alvos escolhidos. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_069","nome":"Vidência","elemento":"Conhecimento","circulo":3,"execucao":"completa","alcance":"ilimitado","alvo":"1 ser","duracao":"5 rodadas","resistencia":"Vontade anula","descricao":"Vê/ouve através de reflexo. Alvo + 6m arredores. Vontade início turnos para bloquear. Passar 2x: termina, imune 1 semana. Precisa info (nome/foto). Modificadores: mínimo +10, algumas infos/viu +5, conhece bem 0, pertence -5, parte corpo -10.","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_070","nome":"Vínculo de Sangue","elemento":"Sangue","circulo":4,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"cena","resistencia":"Fortitude anula","descricao":"Símbolo em você e alvo. Você sofre dano: alvo testa Fort. Falha: você ½ dano, alvo outra ½. Pode inverter (você recebe ½ do alvo). Voluntário não testa.","discente":"","verdadeiro":"","tipo":"sistema"},{"id":"ritual_071","nome":"Vomitar Pestes","elemento":"Sangue","circulo":3,"execucao":"padrão","alcance":"médio","alvo":"1 enxame Grande 3m","duracao":"sustentada","resistencia":"Reflexos reduz ½","descricao":"Enxame de criaturas Sangue. Atravessa/não bloqueia. Fim seus turnos: 5d12 Sangue (Reflex ½) em seres no espaço. Movimento: move 12m.","discente":"Discente (+2 PE): falha Reflex: agarrado. Atletismo/Acrobacia padrão para escapar. Mover enxame libera.","verdadeiro":"Verdadeiro (+5 PE): Enorme (cubo 6m), voo 18m.","tipo":"sistema"},{"id":"ritual_072","nome":"Zerar Entropia","elemento":"Morte","circulo":3,"execucao":"padrão","alcance":"curto","alvo":"1 pessoa","duracao":"cena","resistencia":"Vontade parcial","descricao":"Zera entropia. Alvo paralizado (se passa: lento). Início turnos: completa + Vontade para encerrar.","discente":"Discente (+4 PE): 1 ser. Requer 4º círculo.","verdadeiro":"Verdadeiro (+11 PE): seres escolhidos. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_073","nome":"Esfolar","elemento":"Sangue","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"instantânea","resistencia":"Reflexos parcial","descricao":"Agulhas e lâminas rubras. 3d4+3 corte e sangrando (Reflex ½, sem condição).","discente":"Discente (+2 PE): médio, 5d4+5, explosão 6m. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): longo, 10d4+10, explosão 6m. Passar não evita condição. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_074","nome":"Sede de Adrenalina","elemento":"Sangue","circulo":2,"execucao":"reação","alcance":"pessoal","alvo":"você","duracao":"instantânea","resistencia":"","descricao":"Falha Acrobacia/Atletismo: repete com Presença. OU reduz dano impacto em 20 (fica atordoado 1 rodada). 1x/rodada. Transe de Sangue (veias pulsam, olhos arregalados).","discente":"Discente (+3 PE): reduz 40.","verdadeiro":"Verdadeiro (+7 PE): reduz 70. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_075","nome":"Odor da Caçada","elemento":"Sangue","circulo":3,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"cena","resistencia":"","descricao":"Nariz enruga, pupilas dilatam. Faro. Perseguição: +5 Atletismo, sem perder PV em esforço extra. Próxima cena: fome e sede (falhado 1º dia).","discente":"Discente (+4 PE): toque, 1 ser.","verdadeiro":"Verdadeiro (+9 PE): curto, até 5 seres. Requer afinidade.","tipo":"sistema"},{"id":"ritual_076","nome":"Martírio de Sangue","elemento":"Sangue","circulo":4,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"veja texto","resistencia":"","descricao":"Sacrifício supremo. Monstruosidade bestial. Faro, visão escuro, cura acelerada 10, +10 ataque/dano/Defesa corpo a corpo, 30 PV temp, desarmados +1 dado letal. Não faz ações foco/concentração, -3 social. Fim da cena: vira criatura Sangue PERMANENTE (perde personagem).","discente":"Discente (+5 PE): +20, 50 PV temp. Requer afinidade.","verdadeiro":"","tipo":"sistema"},{"id":"ritual_077","nome":"Apagar as Luzes","elemento":"Morte","circulo":1,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"instantânea","resistencia":"","descricao":"Apaga luzes alcance curto (natural/paranormal), cria penumbra/escuridão. Você recebe visão no escuro até fim cena.","discente":"Discente (+2 PE): alcance longo. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): como discente, você + até 5 recebem visão escuro. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_078","nome":"Língua Morta","elemento":"Morte","circulo":2,"execucao":"padrão","alcance":"toque","alvo":"1 cadáver","duracao":"sustentada","resistencia":"","descricao":"Lodo reanima cadáver forçadamente. 1 pergunta/rodada, até 3 rodadas. Resposta depende do estado (espasmos, virar crânio, palavra invertida). T3: vira esqueleto Lodo.","discente":"Discente (+3 PE): 4 rodadas. T4: enraizado.","verdadeiro":"Verdadeiro (+7 PE): 5 rodadas. T5: marionete. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_079","nome":"Fedor Pútrido","elemento":"Morte","circulo":3,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"sustentada","resistencia":"","descricao":"Cobre-se com fedor Morte. Coração para, pulmões param, sangue cessa. Animais afastam, -3 Diplomacia, +5 Furtividade, +10 fingir-se morto. Furtividade: parado = visibilidade -1. Sofre 1d4 Morte/rodada (ignora RD).","discente":"Discente (+4 PE): toque, 1 ser voluntário.","verdadeiro":"Verdadeiro (+9 PE): curto, até 5 voluntários. Requer afinidade.","tipo":"sistema"},{"id":"ritual_080","nome":"Singularidade Temporal","elemento":"Morte","circulo":4,"execucao":"padrão","alcance":"curto","alvo":"1 objeto Médio não paranormal","duracao":"instantânea","resistencia":"veja texto","descricao":"Avança objeto no tempo para decomposição máxima. Depende da natureza (maçã apodrece, diamante nada, pneu resseca/rasga). Pode danificar (-5 testes) ou destruir. Em uso: Fort protege.","discente":"Discente (+5 PE): Grande.","verdadeiro":"Verdadeiro (+10 PE): Enorme.","tipo":"sistema"},{"id":"ritual_081","nome":"Desfazer Sinapses","elemento":"Conhecimento","circulo":1,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"instantânea","resistencia":"Vontade parcial","descricao":"Inexiste neurônios. 2d6+2 Conhecimento e frustrado 1 rodada (Vont ½, sem frustrado). Precisa cérebro. Sangra levemente olhos/nariz/orelhas/boca.","discente":"Discente (+2 PE): longo, 3d6+3, até 5 alvos. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): extremo, 8d6+8, esmorecido (se passa: frustrado). Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_082","nome":"Aurora da Verdade","elemento":"Conhecimento","circulo":2,"execucao":"padrão","alcance":"curto","alvo":"esfera 3m","duracao":"sustentada","resistencia":"Vontade parcial","descricao":"Luz espectral dourada. Seres na área falam só verdade (inclui conjurador). Passa: pode mentir. Escondido/camuflado/invisível: revelado por sigilos.","discente":"Discente (+3 PE): médio, 9m, você não afetado.","verdadeiro":"Verdadeiro (+7 PE): como discente, longo, cena. Ouve tudo falado na área de qualquer distância. Requer 4º círculo e afinidade.","tipo":"sistema"},{"id":"ritual_083","nome":"Relembrar Fragmento","elemento":"Conhecimento","circulo":3,"execucao":"padrão","alcance":"toque","alvo":"1 objeto","duracao":"instantânea","resistencia":"","descricao":"Restaura objeto ilegível/danificado (livro, papel, texto impresso). Precisa pedaço tamanho mindinho. Restaura enquanto toca. Solta = volta danificado. Não funciona em destruído paranormal.","discente":"Discente (+4 PE): permanece até fim missão.","verdadeiro":"Verdadeiro (+9 PE): altera objeto imperceptivelmente (conforme vontade). Permanece até fim missão. Requer afinidade.","tipo":"sistema"},{"id":"ritual_084","nome":"Pronunciar Sigilo","elemento":"Conhecimento","circulo":4,"execucao":"padrão","alcance":"curto","alvo":"1 ser","duracao":"instantânea/veja texto","resistencia":"Vontade parcial","descricao":"Profana Realidade. Som indescritível. Escolha: Esquecer (atordoado 1d4+1 rodadas, 1x/cena; se passa/já atordoado: desprevenido 1d4 rodadas). Cegar (cego; se passa: ofuscado 1d4 rodadas). Inexistir (desaparece 1d4+1 rodadas ou 1 se passa; retorna espaço original ou adjacente; criatura escolhe ponto 18m; 1x/cena).","discente":"Discente (+5 PE): extremo.","verdadeiro":"Verdadeiro (+10 PE): até 5 alvos. Requer afinidade.","tipo":"sistema"},{"id":"ritual_085","nome":"Overclock","elemento":"Energia","circulo":1,"execucao":"reação","alcance":"pessoal","alvo":"você","duracao":"instantânea","resistencia":"","descricao":"Teste Tecnologia: após saber resultado, pode conjurar para forçar aparelho com Energia. Jogo estátua (música): move dedos, mestre interrompe, parar imóvel. Erro = falha. Fim sem erros = sucesso. Após (sucesso ou não): objeto com flickering/chiados/vírus paranormal inutilizado.","discente":"Discente (+2 PE): falha apenas se errar 2x. Requer 2º círculo.","verdadeiro":"Verdadeiro (+5 PE): falha apenas se errar 3x. Requer 3º círculo.","tipo":"sistema"},{"id":"ritual_086","nome":"Tremeluzir","elemento":"Energia","circulo":2,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"sustentada","resistencia":"","descricao":"Reorganiza moléculas em fótons. Pisca como monitor. Atravessa objetos sólidos (ação movimento cada, 25% falha). Perseguição: cortar caminho sem penalidade Atletismo. Sofre 1d4 Energia/rodada (ignora RD). Termina turno em sólido: +1d4 Energia.","discente":"Discente (+3 PE): toque, 1 ser voluntário.","verdadeiro":"Verdadeiro (+7 PE): curto, até 5 voluntários. Requer 4º círculo.","tipo":"sistema"},{"id":"ritual_087","nome":"Mutar","elemento":"Energia","circulo":3,"execucao":"padrão","alcance":"pessoal","alvo":"você","duracao":"cena","resistencia":"","descricao":"Inibe emissão de som. Passos, arma, voz mudos. Som não alcança você. +10 Furtividade, -1 visibilidade furtividade. Jogador sob efeito só fala com permissão mestre (senão ritual esvai). Deve comunicar sem voz.","discente":"Discente (+4 PE): toque, 1 ser.","verdadeiro":"Verdadeiro (+9 PE): curto, até 5 seres. Requer afinidade.","tipo":"sistema"},{"id":"ritual_088","nome":"Milagre Ionizante","elemento":"Energia","circulo":3,"execucao":"completa","alcance":"toque","alvo":"1 ser","duracao":"instantânea","resistencia":"","descricao":"Radiação médica. Cura 1 condição (abalado, apavorado, alquebrado, atordoado, cego, confuso, debilitado, enjoado, envenenado, esmorecido, exausto, fascinado, fatigado, fraco, frustrado, lento, ofuscado, paralisado, pasmo, surdo) ou doença ou veneno. Afeta paranormal exceto Energia e permanentes. Após curar: Fortitude CD 30 ou infectado por vírus infectcídio.","discente":"","verdadeiro":"","tipo":"sistema"}]`);
+
+// ============================================================
+//  FIREBASE INIT
+// ============================================================
 function initFirebase() {
-  // Verificar se Firebase está disponível
   if (typeof firebase === 'undefined') {
-    console.warn('⚠️ Firebase SDK não carregado, usando apenas localStorage');
+    console.warn('⚠️ Firebase SDK não carregado, usando localStorage');
     useFirebase = false;
     loadFromLocalStorage();
     return;
   }
 
   try {
-    // Inicializar Firebase
     firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
     useFirebase = true;
-    
     console.log('🔥 Firebase conectado!');
     loadFromFirebase();
   } catch(e) {
-    console.error('❌ Erro ao inicializar Firebase:', e);
+    console.error('❌ Erro Firebase:', e);
     useFirebase = false;
     loadFromLocalStorage();
   }
 }
 
-// Carregar do Firebase
+// ============================================================
+//  FIREBASE OPERATIONS
+// ============================================================
 function loadFromFirebase() {
-  db.collection('rituais').get()
-    .then((querySnapshot) => {
-      rituais = [];
-      querySnapshot.forEach((doc) => {
-        rituais.push({ ...doc.data() });
-      });
-      
-      // Ordenar por id (mais recentes primeiro)
-      rituais.sort((a, b) => (b.id || 0) - (a.id || 0));
-      
-      console.log(`🔥 ${rituais.length} ritual(is) carregado(s) do Firebase`);
-      render();
-    })
-    .catch((error) => {
-      console.error('❌ Erro ao carregar do Firebase:', error);
-      loadFromLocalStorage();
+  Promise.all([
+    db.collection('rituais_customizados').get(),
+    db.collection('meus_rituais').doc('lista').get()
+  ]).then(([customSnap, meusSnap]) => {
+    rituaisCustomizados = [];
+    customSnap.forEach(doc => {
+      rituaisCustomizados.push({ ...doc.data() });
     });
+    
+    if (meusSnap.exists) {
+      meusRituais = meusSnap.data().ids || [];
+    }
+    
+    console.log(`🔥 ${rituaisCustomizados.length} customizados, ${meusRituais.length} salvos`);
+    render();
+  }).catch(err => {
+    console.error('❌ Erro carregar Firebase:', err);
+    loadFromLocalStorage();
+  });
 }
 
-// Salvar no Firebase
-function saveToFirebase(ritual) {
+function saveCustomToFirebase(ritual) {
   if (!db) return Promise.resolve();
-  
-  return db.collection('rituais').doc(ritual.id.toString()).set(ritual)
-    .then(() => {
-      console.log('🔥 Salvo no Firebase:', ritual.nome);
-    })
-    .catch((error) => {
-      console.error('❌ Erro ao salvar no Firebase:', error);
-    });
+  return db.collection('rituais_customizados').doc(ritual.id).set(ritual);
 }
 
-// Deletar do Firebase
-function deleteFromFirebase(id) {
+function deleteCustomFromFirebase(id) {
   if (!db) return Promise.resolve();
-  
-  return db.collection('rituais').doc(id.toString()).delete()
-    .then(() => {
-      console.log('🔥 Deletado do Firebase');
-    })
-    .catch((error) => {
-      console.error('❌ Erro ao deletar do Firebase:', error);
-    });
+  return db.collection('rituais_customizados').doc(id).delete();
 }
 
-// localStorage (sempre usado como backup)
+function saveMeusToFirebase() {
+  if (!db) return Promise.resolve();
+  return db.collection('meus_rituais').doc('lista').set({ ids: meusRituais });
+}
+
+// ============================================================
+//  LOCAL STORAGE
+// ============================================================
 function loadFromLocalStorage() {
   try {
-    const saved = localStorage.getItem(KEY);
-    if (saved) {
-      rituais = JSON.parse(saved);
-      console.log(`💾 ${rituais.length} ritual(is) carregado(s) do localStorage`);
-    }
+    const custom = localStorage.getItem('rituais_customizados');
+    const meus = localStorage.getItem('meus_rituais');
+    
+    if (custom) rituaisCustomizados = JSON.parse(custom);
+    if (meus) meusRituais = JSON.parse(meus);
+    
+    console.log(`💾 ${rituaisCustomizados.length} customizados, ${meusRituais.length} salvos`);
   } catch(e) {
-    console.error('❌ Erro ao carregar do localStorage:', e);
+    console.error('❌ Erro localStorage:', e);
   }
   render();
 }
 
 function saveToLocalStorage() {
   try {
-    localStorage.setItem(KEY, JSON.stringify(rituais));
+    localStorage.setItem('rituais_customizados', JSON.stringify(rituaisCustomizados));
+    localStorage.setItem('meus_rituais', JSON.stringify(meusRituais));
   } catch(e) {
-    console.error('❌ Erro ao salvar no localStorage:', e);
+    console.error('❌ Erro salvar localStorage:', e);
   }
 }
 
-// Inicializar
+// ============================================================
+//  TAB SWITCHING
+// ============================================================
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  render();
+}
+
+// ============================================================
+//  FILTERS
+// ============================================================
+function filterElem(elem) {
+  filtroElemento = elem;
+  document.querySelectorAll('#filtroElemento .filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.elem === elem);
+  });
+  render();
+}
+
+function filterCirc(circ) {
+  filtroCirculo = circ;
+  document.querySelectorAll('#filtroCirculo .filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.circ === circ);
+  });
+  render();
+}
+
+// ============================================================
+//  GET FILTERED RITUALS
+// ============================================================
+function getFilteredRituals() {
+  let todos = [...rituaisSistema, ...rituaisCustomizados];
+  
+  // Aplicar filtros
+  if (filtroElemento !== 'todos') {
+    todos = todos.filter(r => r.elemento.includes(filtroElemento));
+  }
+  if (filtroCirculo !== 'todos') {
+    todos = todos.filter(r => r.circulo === parseInt(filtroCirculo));
+  }
+  
+  // Se tab "Meus Rituais", filtrar apenas os salvos
+  if (currentTab === 'meus') {
+    todos = todos.filter(r => meusRituais.includes(r.id));
+  }
+  
+  return todos;
+}
+
+// ============================================================
+//  RENDER
+// ============================================================
+function render() {
+  const container = document.getElementById('ritualContainer');
+  const rituais = getFilteredRituals();
+  
+  if (!rituais.length) {
+    container.innerHTML = `<div class="empty-state">
+      ${currentTab === 'meus' ? 'Nenhum ritual salvo ainda.<br>Adicione rituais da Biblioteca ao seu grimório pessoal.' : 'Nenhum ritual encontrado com estes filtros.'}
+    </div>`;
+    return;
+  }
+  
+  // Agrupar por círculo
+  const porCirculo = {};
+  rituais.forEach(r => {
+    if (!porCirculo[r.circulo]) porCirculo[r.circulo] = [];
+    porCirculo[r.circulo].push(r);
+  });
+  
+  // Ordenar alfabeticamente dentro de cada círculo
+  Object.keys(porCirculo).forEach(circ => {
+    porCirculo[circ].sort((a, b) => a.nome.localeCompare(b.nome));
+  });
+  
+  // Renderizar
+  let html = '';
+  [1, 2, 3, 4].forEach(circ => {
+    if (porCirculo[circ] && porCirculo[circ].length) {
+      html += `<div class="ritual-section">
+        <div class="section-title">CÍRCULO ${circ}</div>
+        <div class="ritual-grid">
+          ${porCirculo[circ].map(r => renderCard(r)).join('')}
+        </div>
+      </div>`;
+    }
+  });
+  
+  container.innerHTML = html;
+}
+
+function renderCard(r) {
+  const color = getElementColor(r.elemento);
+  const isSaved = meusRituais.includes(r.id);
+  const isCustom = r.tipo === 'customizado';
+  
+  return `<div class="ritual-card">
+    <div class="card-stripe" style="background:${color.color}"></div>
+    <div class="card-content">
+      <div class="card-header">
+        <div class="card-title-area">
+          <div class="card-name">${esc(r.nome)}</div>
+          <span class="card-element" style="color:${color.color};background:${color.bg};border-color:${color.border}">
+            ${esc(r.elemento)} ${r.circulo}
+          </span>
+        </div>
+        <div class="card-actions">
+          ${currentTab === 'biblioteca' ? `
+            <button class="card-btn ${isSaved ? 'active' : ''}" onclick="toggleSave('${r.id}')" title="${isSaved ? 'Remover do grimório' : 'Adicionar ao grimório'}">
+              ${isSaved ? '★' : '☆'}
+            </button>
+          ` : ''}
+          ${isCustom ? `
+            <button class="card-btn" onclick="editCustom('${r.id}')" title="Editar">✎</button>
+            <button class="card-btn" onclick="deleteCustom('${r.id}')" title="Deletar">✕</button>
+          ` : ''}
+          ${currentTab === 'meus' && !isCustom ? `
+            <button class="card-btn" onclick="toggleSave('${r.id}')" title="Remover">✕</button>
+          ` : ''}
+        </div>
+      </div>
+      
+      <div class="card-meta">
+        ${r.execucao ? `<strong>Execução:</strong> ${esc(r.execucao)} • ` : ''}
+        ${r.alcance ? `<strong>Alcance:</strong> ${esc(r.alcance)} • ` : ''}
+        ${r.alvo ? `<strong>Alvo:</strong> ${esc(r.alvo)}` : ''}
+        ${r.duracao ? `<br><strong>Duração:</strong> ${esc(r.duracao)}` : ''}
+        ${r.resistencia ? ` • <strong>Resistência:</strong> ${esc(r.resistencia)}` : ''}
+      </div>
+      
+      <div class="card-desc">${esc(r.descricao)}</div>
+      
+      ${r.discente || r.verdadeiro ? `
+        <div style="font-size:0.85rem;color:var(--grey-400);margin-top:8px">
+          ${r.discente ? `<div style="margin-bottom:4px">${esc(r.discente)}</div>` : ''}
+          ${r.verdadeiro ? `<div>${esc(r.verdadeiro)}</div>` : ''}
+        </div>
+      ` : ''}
+      
+      <div style="margin-top:12px">
+        <span class="card-badge ${isCustom ? 'badge-customizado' : 'badge-sistema'}">
+          ${isCustom ? 'Customizado' : 'Sistema'}
+        </span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function esc(s) {
+  if (!s) return '';
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ============================================================
+//  TOGGLE SAVE
+// ============================================================
+function toggleSave(id) {
+  const idx = meusRituais.indexOf(id);
+  if (idx > -1) {
+    meusRituais.splice(idx, 1);
+  } else {
+    meusRituais.push(id);
+  }
+  
+  if (useFirebase) saveMeusToFirebase();
+  saveToLocalStorage();
+  render();
+}
+
+// ============================================================
+//  MODAL
+// ============================================================
+function openCreateModal() {
+  editingId = null;
+  document.getElementById('modalTitle').textContent = 'CRIAR RITUAL';
+  document.getElementById('btnSave').textContent = 'Criar Ritual';
+  document.getElementById('ritualForm').reset();
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function editCustom(id) {
+  const ritual = rituaisCustomizados.find(r => r.id === id);
+  if (!ritual) return;
+  
+  editingId = id;
+  document.getElementById('modalTitle').textContent = 'EDITAR RITUAL';
+  document.getElementById('btnSave').textContent = 'Atualizar Ritual';
+  
+  document.getElementById('fNome').value = ritual.nome || '';
+  document.getElementById('fElemento').value = ritual.elemento || '';
+  document.getElementById('fCirculo').value = ritual.circulo || '';
+  document.getElementById('fExecucao').value = ritual.execucao || '';
+  document.getElementById('fAlcance').value = ritual.alcance || '';
+  document.getElementById('fAlvo').value = ritual.alvo || '';
+  document.getElementById('fDuracao').value = ritual.duracao || '';
+  document.getElementById('fResistencia').value = ritual.resistencia || '';
+  document.getElementById('fDescricao').value = ritual.descricao || '';
+  document.getElementById('fDiscente').value = ritual.discente || '';
+  document.getElementById('fVerdadeiro').value = ritual.verdadeiro || '';
+  
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  editingId = null;
+}
+
+function closeModalIfOutside(e) {
+  if (e.target.id === 'modalOverlay') closeModal();
+}
+
+function saveRitual(e) {
+  e.preventDefault();
+  
+  const data = {
+    nome: document.getElementById('fNome').value.trim(),
+    elemento: document.getElementById('fElemento').value,
+    circulo: parseInt(document.getElementById('fCirculo').value),
+    execucao: document.getElementById('fExecucao').value.trim(),
+    alcance: document.getElementById('fAlcance').value.trim(),
+    alvo: document.getElementById('fAlvo').value.trim(),
+    duracao: document.getElementById('fDuracao').value.trim(),
+    resistencia: document.getElementById('fResistencia').value.trim(),
+    descricao: document.getElementById('fDescricao').value.trim(),
+    discente: document.getElementById('fDiscente').value.trim(),
+    verdadeiro: document.getElementById('fVerdadeiro').value.trim(),
+    tipo: 'customizado'
+  };
+  
+  if (editingId) {
+    // Editar
+    const idx = rituaisCustomizados.findIndex(r => r.id === editingId);
+    if (idx > -1) {
+      rituaisCustomizados[idx] = { id: editingId, ...data };
+      if (useFirebase) saveCustomToFirebase(rituaisCustomizados[idx]);
+    }
+  } else {
+    // Criar
+    const newRitual = { id: `custom_${Date.now()}`, ...data };
+    rituaisCustomizados.push(newRitual);
+    meusRituais.push(newRitual.id); // Auto-adiciona em "Meus Rituais"
+    if (useFirebase) {
+      saveCustomToFirebase(newRitual);
+      saveMeusToFirebase();
+    }
+  }
+  
+  saveToLocalStorage();
+  render();
+  closeModal();
+}
+
+function deleteCustom(id) {
+  if (!confirm('Tem certeza que deseja deletar este ritual?')) return;
+  
+  rituaisCustomizados = rituaisCustomizados.filter(r => r.id !== id);
+  meusRituais = meusRituais.filter(rid => rid !== id);
+  
+  if (useFirebase) {
+    deleteCustomFromFirebase(id);
+    saveMeusToFirebase();
+  }
+  saveToLocalStorage();
+  render();
+}
+
+// ============================================================
+//  INIT
+// ============================================================
 initFirebase();
 </script>
 </body>
